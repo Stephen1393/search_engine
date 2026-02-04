@@ -1,0 +1,24 @@
+{
+  "name": "search_engine",
+  "version": "1.0.0",
+  "description": "Build a search engine from first principles to deeply understand information retrieval, indexing, and ranking. Overall, to understand systems better.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stephen1393/search_engine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Stephen1393/search_engine/issues"
+  },
+  "homepage": "https://github.com/Stephen1393/search_engine#readme"
+}
