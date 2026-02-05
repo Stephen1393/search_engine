@@ -3,7 +3,7 @@
 const tokenize = txt => {
     const token = [] 
     const lower = txt.toLowerCase() 
-    const nontokens = txt.split(/[^a-z0-9]+/) 
+    const nontokens = lower.split(/[^a-z0-9]+/) 
 
     for (let i = 0; i < nontokens.length; i++) {
         const piece = nontokens[i] 
@@ -14,4 +14,4 @@ const tokenize = txt => {
     return token
 }
 
-module.export = { tokenize }
+module.exports = { tokenize }
