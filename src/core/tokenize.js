@@ -1,17 +1,9 @@
-// tokenizer v1: lowercase letters and numbers. (a-z) (0-9)
+// tokenizer v1: update: decided to include hastags, pluses and hyphens.
 
 const tokenize = txt => {
-    const token = [] 
     const lower = txt.toLowerCase() 
-    const nontokens = lower.split(/[^a-z0-9]+/) 
-
-    for (let i = 0; i < nontokens.length; i++) {
-        const piece = nontokens[i] 
-        if (piece !== "") {  
-            token.push(piece)
-        }
-    }
-    return token
+    const raw = lower.match(/[a-z0-9#+-]+/g) ?? []
+    return raw.filter(t => /[a-z0-9]/.test(t)) 
 }
 
 module.exports = { tokenize }

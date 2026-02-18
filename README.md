@@ -15,9 +15,9 @@ information retrieval, indexing, and ranking, and core backend design/systems.
 
 tokenizer.js (v1)
 
--- tokens include lowercase letters and numbers.
--- everything else is treated as a sepa.rator
--- why: docs file expected to contain technical writing.
+-- tokens include lowercase letters, numbers, hyphens and pluses.
+-- everything else is treated as a separator
+-- why: doc file may contain technical writing; terms like "c++", "c#" "#devps" and "e-mail" reamin intact.
 
 search queries.js (v1)
 
@@ -35,9 +35,9 @@ search queries.js (v1)
    ## Tokenization:
    
    Lowercase input
-   Split on /[^a-z0-9]+/
-   Remove empty tokens
-   Numbers are kept as tokens
+   match on /[^a-z0-9#+-]+/g
+   filter to include numbers/letters
+   Numbers, hastags, pluses and hyphens are kept as tokens
 
    ## Query semantics (v1):
    Multi-word queries are AND (must match every token)

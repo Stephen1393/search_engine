@@ -6,21 +6,21 @@ const indexBuilder = () => {
     const docIdToName = {}
     const index = {}
 
+    const DOCS = path.join(__dirname,'..','..','docs') //joining to the correct folder. Used to build docs.
+
     const list = fs.readdirSync(DOCS) 
 
     const files = list.filter(f => f.endsWith(".txt")) 
          
     files.sort() 
-
-     const DOCS = path.join(__dirname,'..','..','docs') //joining to the correct folder. Used to build docs.
-
+    
     for (let i = 0; i < files.length; i++) {
         const docId = i 
         const filename = files[i] 
         docIdToName[docId] = filename 
          
         const fullpath = path.join(DOCS, filename) //path to filename from DOCS
-        const text = fs.readFileSync(fullpath, "utf8")//"utf8". Nodes decodes raw bytes in english
+        const text = fs.readFileSync(fullpath, "utf8")//“Node decodes bytes as UTF-8 text”.
 
         const tokens = tokenize(text) 
 
