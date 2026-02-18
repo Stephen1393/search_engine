@@ -2,11 +2,11 @@ const { tokenize } = require('./tokenize')
 const fs = require('fs') 
 const path = require('path') 
 
-const indexBuilder = () => {
+const indexBuilder = (docDir) => {
     const docIdToName = {}
     const index = {}
 
-    const DOCS = path.join(__dirname,'..','..','docs') //joining to the correct folder. Used to build docs.
+    const DOCS = docDir ?? path.join(__dirname,'..','..','docs') //joining to the correct folder. Used to build docs.
 
     const list = fs.readdirSync(DOCS) 
 
