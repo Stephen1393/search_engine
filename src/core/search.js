@@ -13,7 +13,7 @@ const search = (query) => {
 
     for (let i = 0; i < queryTokens.length; i++) {
         const token = queryTokens[i] //["space"] ["token"]
-        const postings = index[token] // [0,2,1]
+        const postings = index[token] // [0,2,1] 
 
         if(!postings || postings.length === 0) { 
             return []
