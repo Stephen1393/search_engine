@@ -1,19 +1,21 @@
 const { indexBuilder } = require("./indexer")
 const { tokenize } = require("./tokenize")
+
+const indexer = indexBuilder()
  
 const search = (query) => {
 
-    const  {index, docIdToName } = indexBuilder()
+    const { index, docIdToName } = indexer
 
     const queryTokens = tokenize(query) //"space Travel" -- ["space","Travel"]
-    if (!queryTokens.length === 0) return []
+    if (queryTokens.length === 0) return []
 
  
   let currentDocs = null;
 
     for (let i = 0; i < queryTokens.length; i++) {
         const token = queryTokens[i] //["space"] ["token"]
-        const postings = index[token] // [0,2,1] 
+        const postings = index[token]// [0,2,1] 
 
         if(!postings || postings.length === 0) { 
             return []
@@ -34,7 +36,7 @@ const search = (query) => {
         }
         currentDocs = sharedDocs
 
-        if (currentDocs.length === 0) return []
+        if (currentDocs.size === 0) return []
     }
         
         let result = [...currentDocs].sort((a,b) => a - b).slice(0,10)
