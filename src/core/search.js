@@ -1,13 +1,21 @@
 const { indexBuilder } = require("./indexer")
 const { tokenize } = require("./tokenize")
+const path = require("path")
 
-const indexer = indexBuilder()
+const baseDocs = path.join(__dirname, "..", "..", "docs")
+
+const DOCS =
+ process.env.NODE_ENV === "test"
+ ? path.join(__dirname, "..", "..", "test_docs")
+ : baseDocs
+
+const indexer = indexBuilder(DOCS)
  
 const search = (query) => {
 
     const { index, docIdToName } = indexer
 
-    const queryTokens = tokenize(query) //"space Travel" -- ["space","Travel"]
+    const queryTokens = tokenize(query)  //"space Travel" -- ["space","Travel"]
     if (queryTokens.length === 0) return []
 
  
@@ -18,6 +26,7 @@ const search = (query) => {
         const postings = index[token]// [0,2,1] 
 
         if(!postings || postings.length === 0) { 
+
             return []
         }
 
@@ -39,13 +48,14 @@ const search = (query) => {
         if (currentDocs.size === 0) return []
     }
         
-        let result = [...currentDocs].sort((a,b) => a - b).slice(0,10)
+        let result = [...currentDocs].sort((a,b) => a - b).slice(0,5)
 
     const results = result.map((docId) => ({
         id: docId,
         filename: docIdToName[docId],
+
     }))
-    
+
     return results
         
     }
