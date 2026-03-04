@@ -1,4 +1,3 @@
-const { tokenize } = require('../src/core/tokenize')
 const { indexBuilder } = require('../src/core/indexer')
 const  path  = require('path')
 

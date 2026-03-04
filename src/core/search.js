@@ -1,15 +1,9 @@
 const { indexBuilder } = require("./indexer")
 const { tokenize } = require("./tokenize")
-const path = require("path")
 
-const baseDocs = path.join(__dirname, "..", "..", "docs")
+const createSearch = (docsDir) => {
+    const indexer = indexBuilder(docsDir)
 
-const DOCS =
- process.env.NODE_ENV === "test"
- ? path.join(__dirname, "..", "..", "test_docs")
- : baseDocs
-
-const indexer = indexBuilder(DOCS)
  
 const search = (query) => {
 
@@ -60,6 +54,9 @@ const search = (query) => {
         
     }
 
-    module.exports = { search }
+    return search
+}
+
+    module.exports = { createSearch }
 
 
