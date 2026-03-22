@@ -1,8 +1,3 @@
-const { tokenize } = require('./tokenize') 
-const fs = require('fs') 
-const path = require('path') 
-const tokenTitle = require('./tokenTitle')
-
 const indexBuilder = (docDir) => {
     const docIdToName = {}
     const index = {}
@@ -37,5 +32,3 @@ const indexBuilder = (docDir) => {
     
     return { index, docIdToName }
 }
-
-module.exports = { indexBuilder }
