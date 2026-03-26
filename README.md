@@ -26,7 +26,32 @@ search queries.js (v1)
 
    Results (v1)
    Returns up to 10+ results
-   Sorted by docId ascending (results are returned in a consistent order; no ranking yet)
+   Sorted by docId ascending 
 
    ## version 2
+
+   the goal : The ideal result from my search will return a non-spammy, exact match with title support that should beat a repetitive or obviously stuffed doc, even if they have strong title matching tokens.
+
+   tokenizer.js (same as version 1 -- unchanged)
+
+   tokenTitle.js (version 1)
+
+   -- separated title tokenizer from standard tokenizer for clairty.
+   -- tokenize letters, numbers, hypens and periods but replaces anything after the last period with nothing.
+   -- why: To focus on the useful names only. If my doc is named "search.engine.design.txt," it will tokenise all words apart from "txt."
+
+   indexer.js(v2)
+
+   -- ranking includes token position, titleTokens and docLength to help with assessing points from the scorer. They're all stored in a new object (docMeta).
+   
+
+   ##progress
+
+   -- The index now stores titleTokens from the filename. This will help boost a higher score if it matches with tokens from doc.
+
+   -- Fixed an issue that now stores objects of docMeta[docId] in the parent of DocMeta instead of reassigning it.
+
+   -- added tokenPositioning for each docId to track tokens within the doc; Will help with proximity and term frequency from the scorer.
+
+   -- Stored the length of the docs.
 

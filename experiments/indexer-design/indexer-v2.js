@@ -36,8 +36,10 @@ const indexBuilder = (docDir) => {
             index[token].push(docId)   
         } 
 
+        docMeta[docId] = {} 
         const termPositions = {}
-        docMeta[docId] = termPositions
+        docMeta[docId].termPositions = termPositions
+    
 
         for (let i = 0; i < tokens.length; i++) {
             const tokenPosition = i
@@ -49,12 +51,15 @@ const indexBuilder = (docDir) => {
             termPositions[token].push(tokenPosition)
         }
 
+        const docLength = tokens.length
+        docMeta[docId].docLength = docLength
+
         
         const titles = tokenTitle(filename)
         const uniqueTitles = new Set(titles)
 
         const titleTokens = {titleTokens: []}
-        docMeta[docId] = titleTokens
+        docMeta[docId].titleTokens = titleTokens
 
         for (const titleTokes of uniqueTitles) {
             titleTokens.titleTokens.push(titleTokes)
