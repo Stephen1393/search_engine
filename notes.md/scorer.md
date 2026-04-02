@@ -3,6 +3,16 @@
 ## scorer goal
 - scorer the most revelant results while avoiding spammy and high repetitive docs
 
+## example
+
+Search (“seach engine design.”)
+
+a)	Search.engine.design.txt(“search search search …”)
+b)	Searching.design.txt (“design a search engine.”)
+c)	Doc3.txt (“search design engine. Seach search engine design.”)
+d)	Search.engine.txt (“search engine design tutorial.”)
+
+Best result = [D,B,C,A]
 
 ## scorer design
 
