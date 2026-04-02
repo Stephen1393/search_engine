@@ -9,7 +9,7 @@ const indexBuilder = (docDir) => {
     const index = {}
     const docMeta = {}
 
-    const DOCS = docDir ?? path.join(__dirname,'..','..','docs') //joining to the correct folder. Used to build docs.
+    const DOCS = docDir ?? path.join(__dirname,'..','..','docs')
 
     const list = fs.readdirSync(DOCS) 
 
@@ -22,8 +22,8 @@ const indexBuilder = (docDir) => {
         const filename = files[i] 
         docIdToName[docId] = filename 
          
-        const fullpath = path.join(DOCS, filename) //path to filename from DOCS
-        const text = fs.readFileSync(fullpath, "utf8")//“Node decodes bytes as UTF-8 text”.
+        const fullpath = path.join(DOCS, filename) 
+        const text = fs.readFileSync(fullpath, "utf8")
 
         const tokens = tokenize(text) 
 
@@ -68,3 +68,5 @@ const indexBuilder = (docDir) => {
     
     return { index, docIdToName, docMeta }
 }
+
+//module.exports = { indexBuilder }

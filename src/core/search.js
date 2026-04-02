@@ -7,17 +7,17 @@ const createSearch = (docsDir) => {
  
 const search = (query) => {
 
-    const { index, docIdToName } = indexer
+    const { index, docIdToName, docMeta } = indexer
 
-    const queryTokens = tokenize(query)  //"space Travel" -- ["space","Travel"]
+    const queryTokens = tokenize(query)  
     if (queryTokens.length === 0) return []
 
  
   let currentDocs = null;
 
     for (let i = 0; i < queryTokens.length; i++) {
-        const token = queryTokens[i] //["space"] ["token"]
-        const postings = index[token]// [0,2,1] 
+        const token = queryTokens[i] 
+        const postings = index[token]
 
         if(!postings || postings.length === 0) { 
 
@@ -46,7 +46,7 @@ const search = (query) => {
 
     const results = result.map((docId) => ({
         id: docId,
-        filename: docIdToName[docId],
+        filename: docIdToName[docId]
 
     }))
 
