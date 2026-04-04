@@ -35,6 +35,6 @@ Best result = [D,B,C,A]
 
  # trade-offs
  - term frequency is a good indication of relevance, but increases change of spam
- - title tokens may be overpowering and score doc with weak body content higher
+ - title tokens may be overpowering and score docs with weak body content higher
  - longer docs may have more useful information. More information doesn't mean bad information
 

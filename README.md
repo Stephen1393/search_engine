@@ -2,7 +2,7 @@
 
 ## Goal
 Build a search engine from first principles to deeply understand
-information retrieval, indexing, and ranking, and core backend design/systems.
+information retrieval, indexing and ranking.
 
 ## version 1 (v1) Scope
 - Local .txt documents
@@ -28,9 +28,15 @@ search queries.js (v1)
    Returns up to 10+ results
    Sorted by docId ascending 
 
-   ## version 2
+   ## version 2 (scope)
 
-   the goal : The ideal result from my search will return a non-spammy, exact match with title support that should beat a repetitive or obviously stuffed doc, even if they have strong title matching tokens.
+- Local .txt documents
+- Command-line interface
+- Inverted index
+- Will include OR queries
+
+
+   the goal : The ideal result from my search will return a non-spammy, close semantic match with title support that should beat a repetitive or obviously stuffed doc, even if they have strong title matching tokens.
 
    tokenizer.js (same as version 1 -- unchanged)
 
@@ -42,16 +48,4 @@ search queries.js (v1)
 
    indexer.js(v2)
 
-   -- ranking includes token position, titleTokens and docLength to help with assessing points from the scorer. They're all stored in a new object (docMeta).
-   
-
-   ##progress
-
-   -- The index now stores titleTokens from the filename. This will help boost a higher score if it matches with tokens from doc.
-
-   -- Fixed an issue that now stores objects of docMeta[docId] in the parent of DocMeta instead of reassigning it.
-
-   -- added tokenPositioning for each docId to track tokens within the doc; Will help with proximity and term frequency from the scorer.
-
-   -- Stored the length of the docs.
-
+   -- ranking includes token position, title tokens and doc length to help with assessing points from the scorer. They're all stored in a new object (docMeta).
