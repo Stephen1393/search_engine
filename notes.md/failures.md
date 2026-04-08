@@ -25,3 +25,34 @@
      Correct approach, wrong execution. I kept updating match before any existed. (match = j first line in loop) but it needed to be the last. Couldn't think how to "remember match" without first assigning it - it felt backwards.
 
      lesson: match = j is not the first step, but the final step. Updating is the final result.Write code in english for clarity. Be confident with the order.
+
+     # failure - writing proximity function in scorer (token positions)
+
+     `aim of code`: reward tokens in sequence. If partial match, result = 1. If full match, result = 2.
+     Knew where I wanted to go; struggled to turn the logic into code.
+
+      `thinking comparison = sequence`
+       - I kept thinking in pairs rather than a chain. I would have A-B, C-D, but needed A-B-C-D. I needed a variable like "current" to carry forward all valid positions so far (a chain). This needed to be placed outside the outer loop to carry forward across all inner loops and checks.
+    
+       lesson: Think about the flow, startpoint to endpoint and how this can repeat.
+
+       `Placement of variables`
+      - I would place variables (matches, current, partial) where they'd be overwritten.
+      lesson: ask: what has to survive all stages/per stage? 
+
+       `checking state logic inside inner loops`
+     - I tried to decide if something passed/failed while inside inner loop. I also kept adding 1 to the score every time.
+      lesson: decide once all comparisions have been made.
+
+      `loop boundaries`
+      I looped too far and relied on undefined checks. tokenB i + 1, so queryTokens.length should be length - 1 to avoid checking undefined.
+
+    Overall the flow looks like:
+    - take current positions
+    - find next positions that follow valid ones
+    - keep the chain
+    - dicard anything else
+    - repeat
+
+     
+
