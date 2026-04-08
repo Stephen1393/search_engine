@@ -1,11 +1,11 @@
-# failures and lessons
+# mistakes and lessons
 
-# failure - writing the code for AND in search
+# mistake - writing the code for AND in search
  - once separating the files into variables (current docs, shared docs), one to hold the postings and the other to hold matching docId's in a seperate variable, i kept misplacing the lines of code within the loop so nothing was getting stored after being added.
 
  lesson: ensure logic is in order and the shared doc becomes current doc AFTER loop.
 
- # failure - understanding flow of interacting systems
+ # mistake - understanding flow of interacting systems
   - when beginning to write the search function, I couldn't remember how to deconstruct objects and how to use the same index and it's properties without creating brand new variables/objects.
 
    lesson: Understanding factory functions. Don't use repeated object shapes everywhere - use one source.
@@ -14,7 +14,7 @@
 
    lesson: the scorer is used by the search to check query against index. Thinking about what needs to be stored/doesn't  - how the files interact.
 
-   # failure - match position bug for scorer (title tokens)
+   # mistake - match position bug for scorer (title tokens)
    first attempt at code:
    - track positions and tokens of two arrays. If both match and same position, score higher.
    But the position was fixed. i === j. ["hello", "world"] would work but ["x" "helllo" "world"] would fail.
@@ -26,7 +26,7 @@
 
      lesson: match = j is not the first step, but the final step. Updating is the final result.Write code in english for clarity. Be confident with the order.
 
-     # failure - writing proximity function in scorer (token positions)
+     # mistake - writing proximity function in scorer (token positions)
 
      `aim of code`: reward tokens in sequence. If partial match, result = 1. If full match, result = 2.
      Knew where I wanted to go; struggled to turn the logic into code.

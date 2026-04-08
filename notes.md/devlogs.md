@@ -16,4 +16,8 @@
 
    -- Start scorer logic. Compare queryterms to title tokens to track tokens and their positions. Those matching on both will score the highest.
 
+   08/04/26
+
+   -- track token positions in scorer and reward if they follow sequence.
+
    
