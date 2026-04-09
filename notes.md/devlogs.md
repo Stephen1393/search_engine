@@ -20,4 +20,8 @@
 
    -- track token positions in scorer and reward if they follow sequence.
 
+   09/04/26
+
+   -- add spam penalty in scorer for tokens in a sequence > 3
+
    
