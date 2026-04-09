@@ -6,13 +6,14 @@ const scorer = (indexer, query, docId) => {
 
     const queryTokens = tokenize(query)
     const titleTokens = indexer.docMeta[docId].titleTokens
+    let tiltleScore = 0
 
     for (let i = 0; i < queryTokens.length; i++) {
         let position = i
         let token = queryTokens[position]
 
          if (titleTokens.includes(token)) {
-                score += 1
+                tiltleScore += 1
             }
 
             let match;
@@ -26,7 +27,7 @@ const scorer = (indexer, query, docId) => {
                 
                 if (match !== undefined) {
                     if (j === match +1) {
-                        score +2
+                        tiltleScore +2
                     }
                 }
 
@@ -40,7 +41,7 @@ const scorer = (indexer, query, docId) => {
 
        const queryTokens = tokenize(query)
        const tokenPositions = indexer.docMeta[docId].titlePositions
-       let result = 0
+       let proxScore = 0
        let partial = false
        let current
 
@@ -78,13 +79,48 @@ const scorer = (indexer, query, docId) => {
 
         if (matches.length > 0 && partial === false) {
             partial = true
-            result += 1
+            proxScore += 1
         }
-        if (i === queryTokens.length -2 && matches.length > 0) {result += 1}
+        if (i === queryTokens.length -2 && matches.length > 0) {proxScore += 1}
 
 
     }
-    return result
+    
+}
+
+const spam = (indexer, query, docId) => {
+    const queryTokens = tokenize(query)
+    const tokenPositions = indexer.docMeta[docId].tokenPositions
+    let memory = []
+    let spamScore = 0
+
+
+    for (let i = 0; i < queryTokens.length; i++) {
+        let token = queryTokens[i]
+
+        let current = tokenPositions[token]
+
+         if (current === undefined) {
+                continue
+            }
+
+            if (memory.includes(token)) {
+                continue
+            }
+
+        for (let j = 0; j < current.length - 2; j++) {
+            let currentNumber = current[j]
+            let nextNumber = current[j + 1]
+            let nextNext = current[j + 2]
+
+            if (nextNumber === currentNumber + 1 && nextNext === currentNumber + 2) {
+                spamScore -= 1
+            }
+        }
+
+        memory.push(token)
+    }
+    
 }
 
 }
