@@ -54,5 +54,8 @@
     - dicard anything else
     - repeat
 
+    # mistake - mixing numbers with array.lengths in rarity function
+
+    I would search the tokens id's from the index (which is an array) with token.length, thinking this gives me an array to compare against, forgetting length returns one number. once I saw that, I knew what to do.
      
 
