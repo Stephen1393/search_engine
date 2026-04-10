@@ -1,9 +1,12 @@
 const { tokenize } = require('../../src/core/tokenize')
 
-let score = 0
 
-const scorer = (indexer, query, docId) => {
+ const scorer = () => {
+    const result = title + proximity + spam + rarity 
 
+
+const title = (indexer, query, docId) => {
+    
     const queryTokens = tokenize(query)
     const titleTokens = indexer.docMeta[docId].titleTokens
     let tiltleScore = 0
@@ -36,6 +39,7 @@ const scorer = (indexer, query, docId) => {
 
         }
     }
+}
 
     const proximity = (indexer, query, docId) => {
 
@@ -85,22 +89,21 @@ const scorer = (indexer, query, docId) => {
 
 
     }
+    return proximity
     
 }
 
-const spam = (indexer, query, docId) => {
-    const queryTokens = tokenize(query)
-    const tokenPositions = indexer.docMeta[docId].tokenPositions
-    let memory = []
-    let spamScore = 0
-
-
-    for (let i = 0; i < queryTokens.length; i++) {
-        let token = queryTokens[i]
-
-        let current = tokenPositions[token]
-
-         if (current === undefined) {
+    const spam = (indexer, query, docId) => {
+        const queryTokens = tokenize(query)
+        const tokenPositions = indexer.docMeta[docId].tokenPositions
+        let memory = []
+        let spamScore = 0
+        
+        for (let i = 0; i < queryTokens.length; i++) {
+            let token = queryTokens[i]
+            let current = tokenPositions[token]
+            
+            if (current === undefined) {
                 continue
             }
 
@@ -117,10 +120,38 @@ const spam = (indexer, query, docId) => {
                 spamScore -= 1
             }
         }
-
+        
         memory.push(token)
     }
     
+    return spam
+}
+
+    const rarity = (indexer, query) => {
+        const queryTokens = tokenize(query)
+        const docs = indexer.index
+        let rareScore = 0
+        let memory;
+        
+        for (let i = 0; i < queryTokens.length; i++) {
+            let token = queryTokens[i]
+            
+            if (docs[token] === undefined) {
+                continue
+            }
+            
+            let current = docs[token].length
+            
+            if (memory === undefined || memory > current) {
+                
+                memory = current 
+            }
+        
+        }
+
+    if (memory !== undefined) {rareScore += 1}
+
+    return rarity
 }
 
 }
