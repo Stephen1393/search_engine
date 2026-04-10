@@ -1,22 +1,37 @@
+//version 1
+
 const { tokenize } = require('../../src/core/tokenize')
 
 
  const scorer = () => {
-    const result = title + proximity + spam + rarity 
+     const result = {}
+     
+     const titleScore = title()
+     const proxScore = proximity()
+     const spamScore = spam()
+     const rareScore = rarity()
+     
+     result.title = titleScore
+     result.proximity = proxScore
+     result.spam = spamScore
+     result.rarity = rareScore
+    
+
+
 
 
 const title = (indexer, query, docId) => {
     
     const queryTokens = tokenize(query)
     const titleTokens = indexer.docMeta[docId].titleTokens
-    let tiltleScore = 0
+    let titleScore = 0
 
     for (let i = 0; i < queryTokens.length; i++) {
         let position = i
         let token = queryTokens[position]
 
          if (titleTokens.includes(token)) {
-                tiltleScore += 1
+                titleScore += 1
             }
 
             let match;
@@ -39,6 +54,7 @@ const title = (indexer, query, docId) => {
 
         }
     }
+    return titleScore
 }
 
     const proximity = (indexer, query, docId) => {
@@ -89,7 +105,7 @@ const title = (indexer, query, docId) => {
 
 
     }
-    return proximity
+    return proxScore
     
 }
 
@@ -124,7 +140,7 @@ const title = (indexer, query, docId) => {
         memory.push(token)
     }
     
-    return spam
+    return spamScore
 }
 
     const rarity = (indexer, query) => {
@@ -151,7 +167,9 @@ const title = (indexer, query, docId) => {
 
     if (memory !== undefined) {rareScore += 1}
 
-    return rarity
+    return rareScore
 }
 
+return scorer
 }
+
