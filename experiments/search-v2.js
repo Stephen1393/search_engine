@@ -1,8 +1,4 @@
-const { indexBuilder } = require("./indexer")
-const { tokenize } = require("./tokenize")
-const { scorer } = require('./scorer')
-
-const createSearch = (docsDir) => {
+const createSearch = (docsDir) => { //version 2
     const indexer = indexBuilder(docsDir)
 
  
@@ -57,7 +53,3 @@ const search = (query) => {
 
     return search
 }
-
-    module.exports = { createSearch }
-
-

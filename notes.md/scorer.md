@@ -1,7 +1,7 @@
 ## scorer system
 
 ## scorer goal
-- scorer the most revelant results while avoiding spammy and high repetitive docs
+- score the most revelant results while avoiding spammy and high repetitive docs
 
 ## example
 
@@ -25,13 +25,13 @@ Best result = [D,B,C,A]
   - terms in sequence are high signal, and far apart - low signal. terms further apart might suggest the content contains a lot of unrelated information (not specific enough)
 
   - spam control
-   -  If term is mentioned > 3 times in a row, there will be a penalty
+   -  If term is mentioned > 2 times in a row, there will be a penalty
 
  - coverage
   - how many query terms are matched throughout the documents? the rarer terms will have a higher score (good indication that content might be relevent)
 
- - document length
-  - the shorter documents might have a better change of being focused; longer ones might contain a lot of irrelevant information
+ - document length (on hold for now. See what tests return)
+  - the shorter documents might have a better change of being focused; longer ones might contain a lot of irrelevant information 
 
  # trade-offs
  - title tokens may be overpowering and score docs with weak body content higher
