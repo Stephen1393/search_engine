@@ -1,5 +1,6 @@
 const { indexBuilder } = require("./indexer")
 const { tokenize } = require("./tokenize")
+const { scorer } = require('./scorer')
 
 const createSearch = (docsDir) => {
     const indexer = indexBuilder(docsDir)
@@ -7,7 +8,7 @@ const createSearch = (docsDir) => {
  
 const search = (query) => {
 
-    const { index, docIdToName, docMeta } = indexer
+    const { index, docIdToName} = indexer
 
     const queryTokens = tokenize(query)  
     if (queryTokens.length === 0) return []
@@ -17,42 +18,41 @@ const search = (query) => {
 
     for (let i = 0; i < queryTokens.length; i++) {
         const token = queryTokens[i] 
-        const postings = index[token]
+        const postings = index[token] 
 
-        if(!postings || postings.length === 0) { 
+        if (!postings || postings.length === 0) { 
 
             return []
         }
 
-            if (currentDocs === null ) {
-                currentDocs = new Set(postings)
+            if (currentDocs === null) {
+                currentDocs = new Set(postings) 
                 continue
-            
             }
-         
-        const sharedDocs = new Set()
-        for (let x = 0; x < postings.length; x++) {
-            let docId = postings[x]
-            if (currentDocs.has(docId)) {
-                sharedDocs.add(docId)
+
+            for (let x = 0; x < postings.length; x++) { 
+                let number = postings[x]
+
+                currentDocs.add(number)
             }
         }
-        currentDocs = sharedDocs
 
-        if (currentDocs.size === 0) return []
-    }
+        let result = [] 
         
-        let result = [...currentDocs].sort((a,b) => a - b).slice(0,5)
+         for (const docId of currentDocs) {
+            let docInfo = {}
+            let score = scorer(indexer,query, docId)
 
-    const results = result.map((docId) => ({
-        id: docId,
-        filename: docIdToName[docId]
+            docInfo.filename = docIdToName[docId]
+            docInfo.docId = docId
+            docInfo.score = score
 
-    }))
+            result.push(docInfo)
+        }
 
-    return results
-        
-    }
+    
+
+}
 
     return search
 }

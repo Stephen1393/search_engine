@@ -8,11 +8,13 @@ const { tokenize } = require('../../src/core/tokenize')
      const proxScore = proximity()
      const spamScore = spam()
      const rareScore = rarity()
+     const total = titleScore + proxScore + spamScore + rareScore
      
      result.title = titleScore
      result.proximity = proxScore
      result.spam = spamScore
      result.rarity = rareScore
+     result.total = total
     
 
 
@@ -172,4 +174,4 @@ return scorer
 
 }
 
-module.exports =  {scorer }
+module.exports =  { scorer }
