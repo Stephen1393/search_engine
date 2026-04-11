@@ -57,5 +57,9 @@
     # mistake - mixing numbers with array.lengths in rarity function
 
     I would search the tokens id's from the index (which is an array) with token.length, thinking this gives me an array to compare against, forgetting length returns one number. once I saw that, I knew what to do.
-     
+
+    # lesson - checking score after each docId in search
+
+    I correctly wrote the OR retrieval logic, but couldn't think how to return the docs with their scores. I needed another loop through the docIds, then call the scorer after each token, and then I knew to store it in one object. I also had the order of the array.sort snytax the wrong way; the aim is to return the highest doc first, so I needed sort((a,b) => b - a), not ((a,b) => a - b.)  
+    lesson: Identify the doc, call the scorer, then store it. Step by step thinking.
 

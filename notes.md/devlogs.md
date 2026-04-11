@@ -24,4 +24,9 @@
 
    -- add spam penalty in scorer for tokens in a sequence > 2
 
+   11/04/26
+
+   -- Add main scorer result in scorer function. Finish version 1 scorer
+   -- Update AND retrieval search with OR and store docId's with their score. Finish search version 2
+
    
