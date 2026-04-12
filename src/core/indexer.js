@@ -68,4 +68,4 @@ const indexBuilder = (docDir) => {
     return { index, docIdToName, docMeta }
 }
 
-module.exports { indexBuilder }
+module.exports = { indexBuilder }
