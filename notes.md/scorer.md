@@ -36,4 +36,5 @@ Best result = [D,B,C,A]
  # trade-offs
  - title tokens may be overpowering and score docs with weak body content higher
  - longer docs may have more useful information. More information doesn't mean bad information
+ - Replaced AND retrieval with OR in search. Higher risk of retrieving docs that are less helpful just because of matching terms. However, the scorer will help decide what ranks #1
 
