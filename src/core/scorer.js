@@ -45,7 +45,7 @@ const title = (indexer, query, docId) => {
                 
                 if (match !== undefined) {
                     if (j === match +1) {
-                        tiltleScore +2
+                        titleScore +2
                     }
                 }
 

@@ -1,7 +1,7 @@
 # Search Engine (From Scratch)
 
 ## Goal
-This project is a search engine built from scratch to understand information retrieval, indexing, and ranking at a deep level. The long-term goal is to apply these ideas to a specialised search engine for error codes.
+This project is a search engine built from scratch to understand information retrieval, indexing, and ranking at a deep level. The long-term goal is to apply these ideas to a specialised search engine for error codes. I will be researching and learning about the errors as I test them.
 
 ## version 1 (v1) Scope
 - Local .txt documents
