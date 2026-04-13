@@ -1,0 +1,24 @@
+# scorer test 1
+
+query(TypeError: Cannot read properties of undefined (reading 'length'))
+
+A) doc1.txt ("TypeError: cannot read properties of undefined. (reading 'length')). 
+
+ common causes and fixes:
+
+   variable has no value
+   - e/g. A variable exists but was never assigned anything
+   - Fix: variable expected to hold data but is undefined. Make sure a variable is assigned before trying to access .length from it
+
+
+   function didn't return anything
+   - e.g. A function didn't return anything, so the result is undefined
+   - Fix: check the result is within the function and returns the value expected
+
+   Missing part of an object path
+   - e.g: along an object path, you're accessing something that is undefined
+   - Fix: ensure all nested properties along an object path have values
+
+   data hasn't loaded yet
+   - e.g: code runs before data arrives
+   - fix: wait for the data/async to complete
