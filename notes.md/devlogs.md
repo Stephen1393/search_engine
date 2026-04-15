@@ -29,4 +29,10 @@
    -- Add main scorer result in scorer function. Finish version 1 scorer
    -- Update AND retrieval search with OR and store docId's with their score. Finish search version 2
 
+15/04/26
+
+   -- Add doc tests ready for test
+   -- Add basic scorer function to compare against main function
+
+
    
