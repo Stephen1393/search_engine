@@ -1,12 +1,15 @@
 const { indexBuilder } = require("./indexer")
 const { tokenize } = require("./tokenize")
 const { scorer } = require('./scorer')
+const { basicScorer }  = require('./basicScorer') 
 
 const createSearch = (docsDir) => {
     const indexer = indexBuilder(docsDir)
 
  
 const search = (query) => {
+
+    let activeScorer = scorer
 
     const { index, docIdToName} = indexer
 
@@ -40,7 +43,7 @@ const search = (query) => {
 
          for (const docId of currentDocs) {
             let docInfo = {}
-            let score = scorer(indexer,query, docId)
+            let score = activeScorer(indexer,query, docId)
 
             docInfo.filename = docIdToName[docId]
             docInfo.docId = docId
