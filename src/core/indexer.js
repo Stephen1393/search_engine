@@ -1,7 +1,7 @@
 const { tokenize } = require('./tokenize') 
 const fs = require('fs') 
 const path = require('path') 
-const tokenTitle = require('./tokenTitle')
+const { tokenTitle } = require('./tokenTitle')
 
 const indexBuilder = (docDir) => {
     const docIdToName = {}

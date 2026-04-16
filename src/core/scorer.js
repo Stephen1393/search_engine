@@ -1,13 +1,15 @@
 const { tokenize } = require('../../src/core/tokenize')
 
 
- const scorer = () => {
+ const scorer = (indexer, query, docId) => {
      const result = {}
+
+     const queryTokens = tokenize(query)
      
-     const titleScore = title()
-     const proxScore = proximity()
-     const spamScore = spam()
-     const rareScore = rarity()
+     const titleScore = titleTerms(indexer, queryTokens, docId)
+     const proxScore = proximity(indexer, queryTokens, docId)
+     const spamScore = spam(indexer, queryTokens, docId)
+     const rareScore = rarity(indexer, queryTokens)
      const total = titleScore + proxScore + spamScore + rareScore
      
      result.title = titleScore
@@ -15,14 +17,10 @@ const { tokenize } = require('../../src/core/tokenize')
      result.spam = spamScore
      result.rarity = rareScore
      result.total = total
+
+
+function titleTerms (indexer,queryTokens, docId) {
     
-
-
-
-
-const title = (indexer, query, docId) => {
-    
-    const queryTokens = tokenize(query)
     const titleTokens = indexer.docMeta[docId].titleTokens
     let titleScore = 0
 
@@ -57,9 +55,8 @@ const title = (indexer, query, docId) => {
     return titleScore
 }
 
-    const proximity = (indexer, query, docId) => {
+    function proximity (indexer,queryTokens, docId) {
 
-       const queryTokens = tokenize(query)
        const tokenPositions = indexer.docMeta[docId].titlePositions
        let proxScore = 0
        let partial = false
@@ -109,8 +106,7 @@ const title = (indexer, query, docId) => {
     
 }
 
-    const spam = (indexer, query, docId) => {
-        const queryTokens = tokenize(query)
+    function spam (indexer,queryTokens, docId) {
         const tokenPositions = indexer.docMeta[docId].tokenPositions
         let memory = []
         let spamScore = 0
@@ -143,8 +139,7 @@ const title = (indexer, query, docId) => {
     return spamScore
 }
 
-    const rarity = (indexer, query) => {
-        const queryTokens = tokenize(query)
+    function rarity (indexer, queryTokens) {
         const docs = indexer.index
         let rareScore = 0
         let memory;
