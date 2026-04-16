@@ -57,11 +57,11 @@ const indexBuilder = (docDir) => {
         const titles = tokenTitle(filename)
         const uniqueTitles = new Set(titles)
 
-        const titleTokens = {titleTokens: []}
+        const titleTokens = []
         docMeta[docId].titleTokens = titleTokens
 
         for (const titleTokes of uniqueTitles) {
-            titleTokens.titleTokens.push(titleTokes)
+            titleTokens.push(titleTokes)
         }
     }
     

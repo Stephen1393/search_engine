@@ -10,3 +10,5 @@ console.log(name)
 let result = search("TypeError: Cannot read properties of undefined (reading 'length')")
 
 console.log(result)
+
+const queryTokens = tokenise(query)

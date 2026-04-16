@@ -57,7 +57,7 @@ function titleTerms (indexer,queryTokens, docId) {
 
     function proximity (indexer,queryTokens, docId) {
 
-       const tokenPositions = indexer.docMeta[docId].titlePositions
+       const termPositions = indexer.docMeta[docId].termPositions
        let proxScore = 0
        let partial = false
        let current
@@ -66,12 +66,12 @@ function titleTerms (indexer,queryTokens, docId) {
         let tokenA = queryTokens[i]
         let tokenB = queryTokens[i + 1]
     
-        if (tokenPositions[tokenB] === undefined) {
+        if (termPositions[tokenB] === undefined) {
             return result
         }
 
         if (i === 0) {
-            current = tokenPositions[tokenA]
+            current = termPositions[tokenA]
         }
 
         let matches = []
@@ -80,8 +80,8 @@ function titleTerms (indexer,queryTokens, docId) {
             let tokenLocation = current[j]
         
 
-        for (let x = 0; x < tokenPositions[tokenB].length; x++) {
-            let tokenLocation2 = tokenPositions[tokenB][x]
+        for (let x = 0; x < termPositions[tokenB].length; x++) {
+            let tokenLocation2 = termPositions[tokenB][x]
 
             if (tokenLocation2 === tokenLocation + 1) {
                 matches.push(tokenLocation2)
@@ -107,13 +107,13 @@ function titleTerms (indexer,queryTokens, docId) {
 }
 
     function spam (indexer,queryTokens, docId) {
-        const tokenPositions = indexer.docMeta[docId].tokenPositions
+        const termPositions = indexer.docMeta[docId].termPositions
         let memory = []
         let spamScore = 0
         
         for (let i = 0; i < queryTokens.length; i++) {
             let token = queryTokens[i]
-            let current = tokenPositions[token]
+            let current = termPositions[token]
             
             if (current === undefined) {
                 continue
