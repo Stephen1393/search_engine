@@ -67,7 +67,7 @@ function titleTerms (indexer,queryTokens, docId) {
         let tokenB = queryTokens[i + 1]
     
         if (termPositions[tokenB] === undefined) {
-            return result
+            return proxScore
         }
 
         if (i === 0) {
@@ -92,7 +92,7 @@ function titleTerms (indexer,queryTokens, docId) {
 
         current = matches
 
-        if (matches.length === 0) { return result}
+        if (matches.length === 0) { return proxScore}
 
         if (matches.length > 0 && partial === false) {
             partial = true
@@ -165,7 +165,7 @@ function titleTerms (indexer,queryTokens, docId) {
     return rareScore
 }
 
-return scorer
+return result
 
 }
 

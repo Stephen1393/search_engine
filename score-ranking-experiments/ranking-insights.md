@@ -2,122 +2,41 @@
 
 query(TypeError: Cannot read properties of undefined (reading 'length'))
 
-## A) doc1.txt:
+A = doc1.txt
+B = TypeError.cannot.read.txt
+C = TypeError.txt
+D = doc4.txt  
+E = typeError.undefined
 
- "TypeError: cannot read properties of undefined. (reading 'length')"
-
- common causes and fixes:
-
-   variable has no value
-   - e/g. A variable exists but was never assigned anything
-   - Fix: variable expected to hold data but is undefined. Make sure a variable is assigned before trying to access .length from it
-
-
-   function didn't return anything
-   - e.g. A function didn't return anything, so the result is undefined
-   - Fix: check the result is within the function and returns the value expected
-
-   Missing part of an object path
-   - e.g: along an object path, you're accessing something that is undefined
-   - Fix: ensure all nested properties along an object path have values
-
-   data hasn't loaded yet
-   - e.g: code runs before data arrives
-   - fix: wait for the data/async to complete
-
-## B) TypeError.cannot.read.txt:
-
-common causes:
-   
-    variable has no value
-   - e/g. A variable exists but was never assigned anything
-   - Fix: variable expected to hold data but is undefined. Make sure a variable is assigned before trying to access .length from it
-
-    function didn't return anything
-   - e.g. A function didn't return anything, so the result is undefined
-   - Fix: check the result is within the function and returns the value expected
-
-## C) TypeError.txt:
-
-"TypeError: cannot read properties of undefined. (reading 'length')"
-
-most common cause:
--  Missing part of an object path
-   - e.g: along an object path, you're accessing something that is undefined
-   - Fix: ensure all nested properties along an object path have values
-
-## D) doc4.txt:
-
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-"TypeError: cannot read properties of undefined. (reading 'length')"
-
-
-## E) typeError.undefined:
-
- common causes and fixes:
-
-   variable has no value
-   - e/g. A variable exists but was never assigned anything
-   - Fix: variable expected to hold data but is undefined. Make sure a variable is assigned before trying to access .length from it
-
-
-   function didn't return anything
-   - e.g. A function didn't return anything, so the result is undefined
-   - Fix: check the result is within the function and returns the value expected
-
-   Missing part of an object path
-   - e.g: along an object path, you're accessing something that is undefined
-   - Fix: ensure all nested properties along an object path have values
-
-   data hasn't loaded yet
-   - e.g: code runs before data arrives
-   - fix: wait for the data/async to complete
-
- common causes and fixes:
-
-   variable has no value
-   - e/g. A variable exists but was never assigned anything
-   - Fix: variable expected to hold data but is undefined. Make sure a variable is assigned before trying to access .length from it
-
-
-   function didn't return anything
-   - e.g. A function didn't return anything, so the result is undefined
-   - Fix: check the result is within the function and returns the value expected
-
-   Missing part of an object path
-   - e.g: along an object path, you're accessing something that is undefined
-   - Fix: ensure all nested properties along an object path have values
-
-   data hasn't loaded yet
-   - e.g: code runs before data arrives
-   - fix: wait for the data/async to complete
-
-
-expected results:
+## expected results:
 
 My expected result is [A,E,B,C,D]
 
-doc A has matching tokens, no spam, multiply causes and fixes. This should clearly rank #1.
+A > E because A has muiltple fixes and causes and is not duplicated
 
-doc E, while duplicated, has all the use of A. 
+E > E because E has all the use of A. B doesn't cover all fixes
 
-doc B has some good uses, but not all causes and fixes are covered.
-
-doc C is similar to B, but only has one cause and fix.
-
-doc D is clearly spam.
+D last because of spam, no useful information
 
 What might fail:
 With my current scorer, B might rank higher than E because of E's repeated tokens and because B has the most title tokens.
 Or repetition might be rewarded too much and will possible rank D higher. Therefore, E might come before A.
 
+actual result: [C,A,D,E,B]
+
+ ## obversations:
+
+ - spam didn't subtract any score
+ - the titleTokens only rewarded 1 as presence, not order or multiply
+ - duplicate docs had no tokens in sequence, scored second lowest
+
+ 
+ ## Changes going forward/trade-offs:
+
+- Improve spam detection to penalise repeated query phrases that do not add new information
+- Keep title scoring to reward presence only for now, otherwise it may score higher than more useful ones which have zero title tokens
+- moderately reward similiar, useful words to query terms. (e.g fix, cause, etc)
+- include a limit for repetition instead of a constant reward for frequency
 
 
 
