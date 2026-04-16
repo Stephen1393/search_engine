@@ -58,7 +58,7 @@ const search = (query) => {
     
     }
 
-    return search
+    return search("TypeError: Cannot read properties of undefined (reading 'length')")
 }
 
     module.exports = { createSearch }

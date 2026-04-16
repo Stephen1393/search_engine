@@ -1,6 +1,8 @@
-function getNumbers() {
-    //return nothing
-}
+const { createSearch } = require('./../src/core/search')
 
-const result = getNumbers()
-console.log(result.length)
+const testDocs = path.join(__dirname,"..", "test_docs")
+const search = createSearch(testDocs)
+
+let result = search("TypeError: Cannot read properties of undefined (reading 'length')")
+
+console.log(result)

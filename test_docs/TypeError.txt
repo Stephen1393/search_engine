@@ -1,0 +1,6 @@
+"TypeError: cannot read properties of undefined. (reading 'length')"
+
+most common cause:
+-  Missing part of an object path
+   - e.g: along an object path, you're accessing something that is undefined
+   - Fix: ensure all nested properties along an object path have values
