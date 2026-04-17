@@ -9,3 +9,6 @@ const tokenTitle = txt => {
 module.exports = { tokenTitle }
 
 
+
+
+// -- > /\.[^/.]+$/

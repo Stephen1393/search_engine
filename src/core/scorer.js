@@ -20,13 +20,17 @@ const { tokenize } = require('../../src/core/tokenize')
 
 
 function titleTerms (indexer,queryTokens, docId) {
-    
+
+    if (docId === 1) {console.log("\n--docId:", docId, "---")}
     const titleTokens = indexer.docMeta[docId].titleTokens
     let titleScore = 0
 
+     if (docId === 1) {console.log("\nquerytokens:")
+    console.log(queryTokens. join(", ")) }
     for (let i = 0; i < queryTokens.length; i++) {
         let position = i
         let token = queryTokens[position]
+
 
          if (titleTokens.includes(token)) {
                 titleScore += 1
@@ -34,10 +38,10 @@ function titleTerms (indexer,queryTokens, docId) {
 
             let match;
 
+     if (docId === 1) {console.log("\ntitleTokens", titleTokens)}
         for (let j = 0; j < titleTokens.length; j++) {
             let position2 = j
             let token2 = titleTokens[position2]
-
 
             if (token === token2) {
                 
@@ -50,7 +54,7 @@ function titleTerms (indexer,queryTokens, docId) {
                 match = j
             }
 
-        }
+        } if (docId === 1) {console.log("\nmatches:", match)}
     }
     return titleScore
 }
