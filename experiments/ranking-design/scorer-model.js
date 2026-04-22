@@ -1,28 +1,26 @@
 //version 1
 
-const { tokenize } = require('../../src/core/tokenize')
-
-
- const scorer = () => {
+const scorer = (indexer, query, docId) => {
      const result = {}
+
+     const queryTokens = tokenize(query)
      
-     const titleScore = title()
-     const proxScore = proximity()
-     const spamScore = spam()
-     const rareScore = rarity()
+     const titleScore = titleTerms(indexer, queryTokens, docId)
+     const proxScore = proximity(indexer, queryTokens, docId)
+     const spamScore = spam(indexer, queryTokens, docId)
+     const rareScore = rarity(indexer, queryTokens)
+     const total = titleScore + proxScore + spamScore + rareScore
      
      result.title = titleScore
      result.proximity = proxScore
      result.spam = spamScore
      result.rarity = rareScore
+     result.total = total
+
+
+function titleTerms (indexer,queryTokens, docId) {
+
     
-
-
-
-
-const title = (indexer, query, docId) => {
-    
-    const queryTokens = tokenize(query)
     const titleTokens = indexer.docMeta[docId].titleTokens
     let titleScore = 0
 
@@ -30,61 +28,61 @@ const title = (indexer, query, docId) => {
         let position = i
         let token = queryTokens[position]
 
+
          if (titleTokens.includes(token)) {
                 titleScore += 1
             }
 
             let match;
 
+     
         for (let j = 0; j < titleTokens.length; j++) {
             let position2 = j
             let token2 = titleTokens[position2]
-
 
             if (token === token2) {
                 
                 if (match !== undefined) {
                     if (j === match +1) {
-                        tiltleScore +2
+                        titleScore +2
                     }
                 }
 
                 match = j
             }
 
-        }
+        } 
     }
     return titleScore
 }
 
-    const proximity = (indexer, query, docId) => {
+    function proximity (indexer,queryTokens, docId) {
 
-       const queryTokens = tokenize(query)
-       const tokenPositions = indexer.docMeta[docId].titlePositions
+       const termPositions = indexer.docMeta[docId].termPositions
        let proxScore = 0
        let partial = false
        let current
 
        for (let i = 0; i < queryTokens.length - 1; i++) {
-        let tokenA = queryTokens[i]
-        let tokenB = queryTokens[i + 1]
+        let tokenA = queryTokens[i] 
+        let tokenB = queryTokens[i + 1] 
     
-        if (tokenPositions[tokenB] === undefined) {
-            return result
+        if (termPositions[tokenB] === undefined) {
+            return proxScore
         }
 
         if (i === 0) {
-            current = tokenPositions[tokenA]
+            current = termPositions[tokenA] 
         }
 
         let matches = []
 
-        for (let j = 0; j < current.length; j++) {
+        for (let j = 0; j < current.length; j++) { 
             let tokenLocation = current[j]
         
 
-        for (let x = 0; x < tokenPositions[tokenB].length; x++) {
-            let tokenLocation2 = tokenPositions[tokenB][x]
+        for (let x = 0; x < termPositions[tokenB].length; x++) {
+            let tokenLocation2 = termPositions[tokenB][x] 
 
             if (tokenLocation2 === tokenLocation + 1) {
                 matches.push(tokenLocation2)
@@ -93,9 +91,9 @@ const title = (indexer, query, docId) => {
 
     }
 
-        current = matches
+        current = matches 
 
-        if (matches.length === 0) { return result}
+        if (matches.length === 0) { return proxScore}
 
         if (matches.length > 0 && partial === false) {
             partial = true
@@ -109,15 +107,14 @@ const title = (indexer, query, docId) => {
     
 }
 
-    const spam = (indexer, query, docId) => {
-        const queryTokens = tokenize(query)
-        const tokenPositions = indexer.docMeta[docId].tokenPositions
+    function spam (indexer,queryTokens, docId) {
+        const termPositions = indexer.docMeta[docId].termPositions
         let memory = []
         let spamScore = 0
         
         for (let i = 0; i < queryTokens.length; i++) {
             let token = queryTokens[i]
-            let current = tokenPositions[token]
+            let current = termPositions[token]
             
             if (current === undefined) {
                 continue
@@ -126,6 +123,8 @@ const title = (indexer, query, docId) => {
             if (memory.includes(token)) {
                 continue
             }
+
+            let match = []
 
         for (let j = 0; j < current.length - 2; j++) {
             let currentNumber = current[j]
@@ -143,8 +142,7 @@ const title = (indexer, query, docId) => {
     return spamScore
 }
 
-    const rarity = (indexer, query) => {
-        const queryTokens = tokenize(query)
+    function rarity (indexer, queryTokens) {
         const docs = indexer.index
         let rareScore = 0
         let memory;
@@ -170,6 +168,8 @@ const title = (indexer, query, docId) => {
     return rareScore
 }
 
-return scorer
+return result
+
 }
 
+module.exports =  { scorer }

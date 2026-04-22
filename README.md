@@ -69,7 +69,7 @@ Each change to the scorer comes from:
 comparing expected vs actual ranking
 spotting where it breaks (spam, repetition, weak signals)
 
-I will keep refining the ranking system until or retrieves what is expected
+I will keep refining the ranking system until it retrieves what is expected
 
 # example of testing
 
