@@ -1,20 +1,21 @@
- "TypeError: cannot read properties of undefined. (reading 'length')"
+"TypeError: cannot read properties of undefined (reading 'length')"
 
- common causes and fixes:
+This happens when you try to access .length on a value that is undefined.
 
-   variable has no value
-   - e/g. A variable exists but was never assigned anything
-   - Fix: variable expected to hold data but is undefined. Make sure a variable is assigned before trying to access .length from it
+Common causes:
 
+variable has no value
+- e.g. a variable was declared but never assigned
+- ensure the variable has a value before using .length
 
-   function didn't return anything
-   - e.g. A function didn't return anything, so the result is undefined
-   - Fix: check the result is within the function and returns the value expected
+function didn’t return anything
+- e.g. a function runs but returns undefined
+- make sure the function returns the expected value
 
-   Missing part of an object path
-   - e.g: along an object path, you're accessing something that is undefined
-   - Fix: ensure all nested properties along an object path have values
+missing part of an object path
+- e.g. accessing a nested property where something is undefined
+- check each step in the object path exists
 
-   data hasn't loaded yet
-   - e.g: code runs before data arrives
-   - fix: wait for the data/async to complete
+data hasn’t loaded yet
+- e.g. code runs before async data is available
+- wait for the data to load before accessing it
