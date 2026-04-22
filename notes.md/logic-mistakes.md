@@ -63,3 +63,7 @@
     I correctly wrote the OR retrieval logic, but couldn't think how to return the docs with their scores. I needed another loop through the docIds, then call the scorer after each token, and then I knew to store it in one object. I also had the order of the array.sort snytax the wrong way; the aim is to return the highest doc first, so I needed sort((a,b) => b - a), not ((a,b) => a - b.)  
     lesson: Identify the doc, call the scorer, then store it. Step by step thinking.
 
+  # lesson - separating cases in spam logic (scorer v2)
+  reworked spam logic. separated single token and first pair checks and fixed some structure issues. Decided to leave full query spam for now because it was getting too bloated and frequency will likely cover some of the penalties
+
+lesson: separate the general loop from the special case. single token spam and first pair spam needed their own logic
