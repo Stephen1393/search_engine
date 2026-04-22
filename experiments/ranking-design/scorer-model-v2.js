@@ -104,89 +104,72 @@ function titleTerms (indexer,queryTokens, docId) {
     
 }
 
-    function spam (indexer,queryTokens, docId) {
+    function spam(indexer, queryTokens, docId) {
 
-       const termPosition = indexer.docMeta[docId].termPosition
-       let spamScore = 0
-       let current
-       
+    const termPosition = indexer.docMeta[docId].termPosition
+    let spamScore = 0
+    let pairs = []
 
-       for (let i = 0; i < queryTokens.length - 2; i++) {
+  
+    for (let i = 0; i < queryTokens.length; i++) {
+
         let tokenA = queryTokens[i]
-        let tokenB = queryTokens[i + 1]
-        let tokenC = queryTokens[i + 2]
-
-        if (tokenB === undefined || tokenC === undefined) {continue}
-
-        if (i === 0) {current = termPosition[tokenA]}
+        let current = termPosition[tokenA]
+        if (!current) continue
 
         for (let j = 0; j < current.length - 2; j++) {
-         let termPosition = current[j]
-         let nextTerm = current[j + 1]
-         let nextNextTerm = current[j + 2]
+            let a = current[j]
+            let b = current[j + 1]
+            let c = current[j + 2]
 
-         if (nextTerm === termPosition + 1 && nextNextTerm === termPosition + 2) {spamScore -= 1}
-
-         let pairs = []
-         let fullQuery = []
-
-         for (let x = 0; x < termPosition[tokenB].length; x++) {
-            let termPosition2 = termPosition[tokenB][x]
-
-            if (i === 0) {
-                if (termPosition2 === termPosition + 1) {
-                    pairs.push([termPosition, termPosition2])
-                }
+            if (b === a + 1 && c === a + 2) {
+                spamScore -= 1
             }
+        }
+    }
 
-            for (let y = 0; y < termPosition[tokenC].length; y++) {
-                let termPosition3 = termPosition[tokenC]
+  
+    let tokenA = queryTokens[0]
+    let tokenB = queryTokens[1]
 
-                    if (termPosition2 === termPosition + 1) {
-                        if (termPosition3 === termPosition2 + 1) {
-                            fullQuery.push([termPosition, termPosition2, termPosition3])
+    let current = termPosition[tokenA]
+    let next = termPosition[tokenB]
 
-                        }
-                    }
-                }
-            }
+    if (current && next) {
+        for (let j = 0; j < current.length; j++) {
+            let posA = current[j]
 
-            let firstFully = false
-            let firstPair = false
+            for (let x = 0; x < next.length; x++) {
+                let posB = next[x]
 
-            for (let p = 0; p < pairs.length - 1; p++) {
-                let couple = pairs[p]
-                let endNum = couple[couple.length - 1]
-                let couple2 = pairs[p + 1]
-                let startNum = couple2[0]
-
-                if (startNum - endNum <= 5) {
-                    if (firstPair === false) {
-                        firstPair = true
-                        spamScore -= 1
-                    }
-                }
-            }
-
-            for (let i = 0; i < fullQuery.length - 1; i++) {
-                let match = fullQuery[i]
-                let end = match[match.length - 1]
-                let match2 = fullQuery[i + 1]
-                let start = match2[0]
-
-                if (start - end <= 5) {
-                    if (firstFully === false) {
-                        firstFully = true
-                        spamScore -= 1
-                    }
+                if (posB === posA + 1) {
+                    pairs.push([posA, posB])
                 }
             }
         }
     }
-}
+
     
+    let firstPair = false
+
+    for (let p = 0; p < pairs.length - 1; p++) {
+        let couple = pairs[p]
+        let endNum = couple[couple.length - 1]
+        let couple2 = pairs[p + 1]
+        let startNum = couple2[0]
+
+        if (startNum - endNum <= 5) {
+            if (firstPair === false) {
+                firstPair = true
+                spamScore -= 1
+            }
+        }
+    }
+
     return spamScore
 }
+    
+
 
     function rarity (indexer, queryTokens) {
         const docs = indexer.index
@@ -215,6 +198,8 @@ function titleTerms (indexer,queryTokens, docId) {
 }
 
 return result
+
+}
 
 }
 
