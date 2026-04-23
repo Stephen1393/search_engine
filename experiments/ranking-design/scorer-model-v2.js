@@ -168,6 +168,29 @@ function titleTerms (indexer,queryTokens, docId) {
 
     return spamScore
 }
+
+function frequency (indexer, queryTokens, docId) {
+    let freqScore = 0
+    const termPositions = indexer.docMeta[docId].termPosition
+
+    const queryTerms = new Set(queryTokens) 
+
+    for (let i = 0; i < queryTerms.length; i++) { 
+        let token = queryTerms[i]
+
+        if (!termPositions[token]) {continue} 
+
+        let tokenFrequency = termPositions[token] 
+
+        if (tokenFrequency.length <= 3) { 
+            freqScore += 1
+        }
+        if (tokenFrequency.length >= 6) {
+            freqScore -= 1
+        }
+    }
+    return freqScore
+}
     
 
 
@@ -198,8 +221,6 @@ function titleTerms (indexer,queryTokens, docId) {
 }
 
 return result
-
-}
 
 }
 
