@@ -7,12 +7,14 @@ const scorer = (indexer, query, docId) => {
      const proxScore = proximity(indexer, queryTokens, docId)
      const spamScore = spam(indexer, queryTokens, docId)
      const rareScore = rarity(indexer, queryTokens)
-     const total = titleScore + proxScore + spamScore + rareScore
+     const freqScore = frequency(indexer, queryTokens, docId)
+     const total = titleScore + proxScore + spamScore + rareScore + freqScore
      
      result.title = titleScore
      result.proximity = proxScore
      result.spam = spamScore
      result.rarity = rareScore
+     result.frequency = freqScore
      result.total = total
 
 
