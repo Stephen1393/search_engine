@@ -175,8 +175,7 @@ function frequency (indexer, queryTokens, docId) {
 
     const queryTerms = new Set(queryTokens) 
 
-    for (let i = 0; i < queryTerms.length; i++) { 
-        let token = queryTerms[i]
+    for (let token of queryTerms) { 
 
         if (!termPositions[token]) {continue} 
 
