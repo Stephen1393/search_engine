@@ -8,13 +8,15 @@ const scorer = (indexer, query, docId) => {
      const spamScore = spam(indexer, queryTokens, docId)
      const rareScore = rarity(indexer, queryTokens)
      const freqScore = frequency(indexer, queryTokens, docId)
-     const total = titleScore + proxScore + spamScore + rareScore + freqScore
+     const wordsScore = keyWords(indexer, docId)
+     const total = titleScore + proxScore + spamScore + rareScore + freqScore + wordsScore
      
      result.title = titleScore
      result.proximity = proxScore
      result.spam = spamScore
      result.rarity = rareScore
      result.frequency = freqScore
+     result.keyWords = wordsScore
      result.total = total
 
 
@@ -191,6 +193,25 @@ function frequency (indexer, queryTokens, docId) {
         }
     }
     return freqScore
+}
+
+function keyWords (indexer, docId) {
+
+    let wordsScore = 0
+
+    const termPosition = indexer.docMeta[docId].termPosition
+
+    const group = new Set ("solution", "fix", "cause", "causes", "fixes")
+
+    for (let token of group) {
+        if (!termPosition[token]) {continue}
+
+        let count = termPosition[token].length
+        
+        if (count <= 2) {wordsScore += 1}
+        if (count >= 5) {wordsScore -= 1}
+    }
+return wordsScore
 }
     
 
