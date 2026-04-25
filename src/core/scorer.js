@@ -10,23 +10,25 @@ const { tokenize } = require('../../src/core/tokenize')
      const proxScore = proximity(indexer, queryTokens, docId)
      const spamScore = spam(indexer, queryTokens, docId)
      const rareScore = rarity(indexer, queryTokens)
-     const total = titleScore + proxScore + spamScore + rareScore
+     const freqScore = frequency(indexer, queryTokens, docId)
+     const wordsScore = keyWords(indexer, docId)
+     const total = titleScore + proxScore + spamScore + rareScore + freqScore + wordsScore
      
      result.title = titleScore
      result.proximity = proxScore
      result.spam = spamScore
      result.rarity = rareScore
+     result.frequency = freqScore
+     result.keyWords = wordsScore
      result.total = total
 
 
 function titleTerms (indexer,queryTokens, docId) {
 
-    if (docId === 1) {console.log("\n--docId:", docId, "---")}
+   
     const titleTokens = indexer.docMeta[docId].titleTokens
     let titleScore = 0
 
-     if (docId === 1) {console.log("\nquerytokens:")
-    console.log(queryTokens. join(", ")) }
     for (let i = 0; i < queryTokens.length; i++) {
         let position = i
         let token = queryTokens[position]
@@ -38,7 +40,6 @@ function titleTerms (indexer,queryTokens, docId) {
 
             let match;
 
-     if (docId === 1) {console.log("\ntitleTokens", titleTokens)}
         for (let j = 0; j < titleTokens.length; j++) {
             let position2 = j
             let token2 = titleTokens[position2]
@@ -54,7 +55,7 @@ function titleTerms (indexer,queryTokens, docId) {
                 match = j
             }
 
-        } if (docId === 1) {console.log("\nmatches:", match)}
+        }
     }
     return titleScore
 }
@@ -67,25 +68,25 @@ function titleTerms (indexer,queryTokens, docId) {
        let current
 
        for (let i = 0; i < queryTokens.length - 1; i++) {
-        let tokenA = queryTokens[i]
-        let tokenB = queryTokens[i + 1]
+        let tokenA = queryTokens[i] 
+        let tokenB = queryTokens[i + 1] 
     
         if (termPositions[tokenB] === undefined) {
             return proxScore
         }
 
         if (i === 0) {
-            current = termPositions[tokenA]
+            current = termPositions[tokenA] 
         }
 
         let matches = []
 
-        for (let j = 0; j < current.length; j++) {
+        for (let j = 0; j < current.length; j++) { 
             let tokenLocation = current[j]
         
 
         for (let x = 0; x < termPositions[tokenB].length; x++) {
-            let tokenLocation2 = termPositions[tokenB][x]
+            let tokenLocation2 = termPositions[tokenB][x] 
 
             if (tokenLocation2 === tokenLocation + 1) {
                 matches.push(tokenLocation2)
@@ -94,7 +95,7 @@ function titleTerms (indexer,queryTokens, docId) {
 
     }
 
-        current = matches
+        current = matches 
 
         if (matches.length === 0) { return proxScore}
 
@@ -110,38 +111,113 @@ function titleTerms (indexer,queryTokens, docId) {
     
 }
 
-    function spam (indexer,queryTokens, docId) {
-        const termPositions = indexer.docMeta[docId].termPositions
-        let memory = []
-        let spamScore = 0
-        
-        for (let i = 0; i < queryTokens.length; i++) {
-            let token = queryTokens[i]
-            let current = termPositions[token]
-            
-            if (current === undefined) {
-                continue
-            }
+    function spam(indexer, queryTokens, docId) {
 
-            if (memory.includes(token)) {
-                continue
-            }
+    const termPosition = indexer.docMeta[docId].termPosition
+    let spamScore = 0
+    let pairs = []
+
+  
+    for (let i = 0; i < queryTokens.length; i++) {
+
+        let tokenA = queryTokens[i]
+        let current = termPosition[tokenA]
+        if (!current) continue
 
         for (let j = 0; j < current.length - 2; j++) {
-            let currentNumber = current[j]
-            let nextNumber = current[j + 1]
-            let nextNext = current[j + 2]
+            let a = current[j]
+            let b = current[j + 1]
+            let c = current[j + 2]
 
-            if (nextNumber === currentNumber + 1 && nextNext === currentNumber + 2) {
+            if (b === a + 1 && c === a + 2) {
                 spamScore -= 1
             }
         }
-        
-        memory.push(token)
     }
+
+  
+    let tokenA = queryTokens[0]
+    let tokenB = queryTokens[1]
+
+    let current = termPosition[tokenA]
+    let next = termPosition[tokenB]
+
+    if (current && next) {
+        for (let j = 0; j < current.length; j++) {
+            let posA = current[j]
+
+            for (let x = 0; x < next.length; x++) {
+                let posB = next[x]
+
+                if (posB === posA + 1) {
+                    pairs.push([posA, posB])
+                }
+            }
+        }
+    }
+
     
+    let firstPair = false
+
+    for (let p = 0; p < pairs.length - 1; p++) {
+        let couple = pairs[p]
+        let endNum = couple[couple.length - 1]
+        let couple2 = pairs[p + 1]
+        let startNum = couple2[0]
+
+        if (startNum - endNum <= 5) {
+            if (firstPair === false) {
+                firstPair = true
+                spamScore -= 1
+            }
+        }
+    }
+
     return spamScore
 }
+
+function frequency (indexer, queryTokens, docId) {
+    let freqScore = 0
+    const termPositions = indexer.docMeta[docId].termPosition
+
+    const queryTerms = new Set(queryTokens) 
+
+    for (let token of queryTerms) { 
+
+        if (!termPositions[token]) {continue} 
+
+        let tokenFrequency = termPositions[token] 
+
+        if (tokenFrequency.length <= 3) { 
+            freqScore += 1
+        }
+        if (tokenFrequency.length >= 6) {
+            freqScore -= 1
+        }
+    }
+    return freqScore
+}
+
+function keyWords (indexer, docId) {
+
+    let wordsScore = 0
+
+    const termPosition = indexer.docMeta[docId].termPosition
+
+    const group = new Set (["causes", "solution", "fix", "cause", "causes", "fixes"])
+
+    for (let token of group) {
+        if (!termPosition[token]) {continue}
+
+        let count = termPosition[token].length
+        
+        if (count <= 2) {wordsScore += 1}
+        if (count >= 5) {wordsScore -= 1}
+    }
+return wordsScore
+}
+    
+
 
     function rarity (indexer, queryTokens) {
         const docs = indexer.index
