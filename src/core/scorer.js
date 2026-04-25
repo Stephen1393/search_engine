@@ -113,7 +113,7 @@ function titleTerms (indexer,queryTokens, docId) {
 
     function spam(indexer, queryTokens, docId) {
 
-    const termPosition = indexer.docMeta[docId].termPosition
+    const termPosition = indexer.docMeta[docId].termPositions
     let spamScore = 0
     let pairs = []
 
@@ -141,6 +141,8 @@ function titleTerms (indexer,queryTokens, docId) {
 
     let current = termPosition[tokenA]
     let next = termPosition[tokenB]
+
+    if (queryTokens.length < 2) {return spamScore}
 
     if (current && next) {
         for (let j = 0; j < current.length; j++) {
@@ -178,15 +180,15 @@ function titleTerms (indexer,queryTokens, docId) {
 
 function frequency (indexer, queryTokens, docId) {
     let freqScore = 0
-    const termPositions = indexer.docMeta[docId].termPosition
+    const termPosition = indexer.docMeta[docId].termPositions
 
     const queryTerms = new Set(queryTokens) 
 
     for (let token of queryTerms) { 
 
-        if (!termPositions[token]) {continue} 
+        if (!termPosition[token]) {continue} 
 
-        let tokenFrequency = termPositions[token] 
+        let tokenFrequency = termPosition[token] 
 
         if (tokenFrequency.length <= 3) { 
             freqScore += 1
@@ -202,7 +204,7 @@ function keyWords (indexer, docId) {
 
     let wordsScore = 0
 
-    const termPosition = indexer.docMeta[docId].termPosition
+    const termPosition = indexer.docMeta[docId].termPositions
 
     const group = new Set (["causes", "solution", "fix", "cause", "causes", "fixes"])
 

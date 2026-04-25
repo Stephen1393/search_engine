@@ -39,6 +39,21 @@ actual result: [C,A,D,E,B]
 - include a limit for repetition instead of a constant reward for frequency
 
 
+## test 2
+
+  ## expected result
+
+  expected result is [A,B,C,E,D] with updated scorer
+
+  A > B because A has more causes and fixes
+
+  B > C because B has more causes despite C have exact error match
+
+  C > E because E is useful but repeats the same - the scorer will penalise the repetition
+
+  D last becasue of spam
+
+
 
 
 
