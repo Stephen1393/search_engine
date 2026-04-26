@@ -47,11 +47,30 @@ actual result: [C,A,D,E,B]
 
   A > B because A has more causes and fixes
 
-  B > C because B has more causes despite C have exact error match
+  B > C because B has more causes, but might fail because C have exact error match and keywords.
 
   C > E because E is useful but repeats the same - the scorer will penalise the repetition
 
   D last becasue of spam
+
+  actual result = [C,A,B,E,D]
+
+   ## observations
+
+   A has more useful explanations, but C has more keywords, title match, and is shorter. (less risk for repetition, spam, etc.) Both scored very similar on proximity and frequency
+
+   C scored significantly higher than B, the main difference being frequency
+
+
+
+## Changes going forward / trade-offs
+
+- Add an explanation-coverage score: reward documents for covering different explanation groups, not just repeating useful keywords.
+- For this query type, groups might include: variable has no value, function returns undefined, missing object path, and data/async not loaded.
+- This should push Doc A higher because A covers more causes than C. It may also raise B.
+- Trade-off: the scorer becomes more complex and more hand-built, but the ranking should become more accurate rather there pure keyword/token matching.
+
+  
 
 
 
