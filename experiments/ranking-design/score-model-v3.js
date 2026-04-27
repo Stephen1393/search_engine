@@ -1,7 +1,8 @@
-//version 2
+// version 3
 
 const scorer = (indexer, query, docId) => {
-     const result = {}
+
+const result = {}
 
      const queryTokens = tokenize(query)
      
@@ -197,6 +198,20 @@ function frequency (indexer, queryTokens, docId) {
     return freqScore
 }
 
+function diversity (indexer, docId) {
+
+    let divScore = 0
+
+    const termPosition = indexer.docMeta[docId].termPosition
+
+    const fillerTokens = new Set (["#", "+", "-",
+        "a", "an", "the",
+        "is", "are", "was", "were",
+        "of", "in", "on", "at", "to", "for", "with", "by", "from",
+        "and", "or", "but", "so",
+        "this", "that", "it", "as", "if", "then"])
+}
+
 function keyWords (indexer, docId) {
 
     let wordsScore = 0
@@ -247,5 +262,6 @@ return wordsScore
 return result
 
 }
+
 
 module.exports =  { scorer }
