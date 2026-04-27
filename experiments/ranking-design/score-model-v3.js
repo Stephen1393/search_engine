@@ -1,5 +1,7 @@
 // version 3
 
+const { tokenize } = require("../../src/core/tokenize")
+
 const scorer = (indexer, query, docId) => {
 
 const result = {}
@@ -206,7 +208,7 @@ function diversity (indexer, docId) {
 
     const usefulTokens = []
 
-    const fillerTokens = new Set (["#", "+", "-",
+    const fillerTokens = new Set ([
         "a", "an", "the",
         "is", "are", "was", "were",
         "of", "in", "on", "at", "to", "for", "with", "by", "from",
@@ -219,7 +221,17 @@ function diversity (indexer, docId) {
     usefulTokens.push(token)
 }
 
+const uniqueTokens = new Set(usefulTokens)
+
+let ratio = usefulTokens.length / uniqueTokens.size
+
+if (ratio <= 0.3) {divScore -= 1}
+if (ratio >= 0.8) {divScore += 1}
+
 }
+return divScore
+}
+
 
 function keyWords (indexer, docId) {
 
