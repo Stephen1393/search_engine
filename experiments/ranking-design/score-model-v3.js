@@ -204,12 +204,21 @@ function diversity (indexer, docId) {
 
     const termPosition = indexer.docMeta[docId].termPosition
 
+    const usefulTokens = []
+
     const fillerTokens = new Set (["#", "+", "-",
         "a", "an", "the",
         "is", "are", "was", "were",
         "of", "in", "on", "at", "to", "for", "with", "by", "from",
         "and", "or", "but", "so",
         "this", "that", "it", "as", "if", "then"])
+
+        for (let token in termPosition) {
+    if (fillerTokens.has(token)) continue
+
+    usefulTokens.push(token)
+}
+
 }
 
 function keyWords (indexer, docId) {
