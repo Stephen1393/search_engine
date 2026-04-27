@@ -14,7 +14,8 @@ const result = {}
      const rareScore = rarity(indexer, queryTokens)
      const freqScore = frequency(indexer, queryTokens, docId)
      const wordsScore = keyWords(indexer, docId)
-     const total = titleScore + proxScore + spamScore + rareScore + freqScore + wordsScore
+     const divScore = diversity(indexer, docId)
+     const total = titleScore + proxScore + spamScore + rareScore + freqScore + wordsScore + divScore
      
      result.title = titleScore
      result.proximity = proxScore
@@ -22,6 +23,7 @@ const result = {}
      result.rarity = rareScore
      result.frequency = freqScore
      result.keyWords = wordsScore
+     result.diversity = divScore
      result.total = total
 
 
@@ -218,22 +220,23 @@ function diversity (indexer, docId) {
         if (!termPosition) {return divScore}
 
         for (let token in termPosition) {
-    if (fillerTokens.has(token)) continue
-
-    for (let i = 0; i < termPosition[token].length; i++) {
-        usefulTokens.push(token)
+            if (fillerTokens.has(token)) continue
+            
+            for (let i = 0; i < termPosition[token].length; i++) {
+                usefulTokens.push(token)
+            }
+        }
+        
+        const uniqueTokens = new Set(usefulTokens)
+        
+        let ratio = uniqueTokens.size / usefulTokens.length
+        
+        if (ratio <= 0.3) {divScore -= 1
+        if (ratio >= 0.8) {divScore += 1}
+    
     }
-}
-
-const uniqueTokens = new Set(usefulTokens)
-
-let ratio = uniqueTokens.size / usefulTokens.length
-
-if (ratio <= 0.3) {divScore -= 1}
-if (ratio >= 0.8) {divScore += 1}
-
-}
-return divScore
+    
+    return divScore
 }
 
 
@@ -243,7 +246,7 @@ function keyWords (indexer, docId) {
 
     const termPosition = indexer.docMeta[docId].termPosition
 
-    const group = new Set (["solution", "fix", "cause", "causes", "fixes"])
+    const group = new Set (["solution", "fix", "cause", "causes", "fixes", "function", "value", "data", "return"])
 
     for (let token of group) {
         if (!termPosition[token]) {continue}
