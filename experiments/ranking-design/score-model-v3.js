@@ -215,15 +215,19 @@ function diversity (indexer, docId) {
         "and", "or", "but", "so",
         "this", "that", "it", "as", "if", "then"])
 
+        if (!termPosition) {return divScore}
+
         for (let token in termPosition) {
     if (fillerTokens.has(token)) continue
 
-    usefulTokens.push(token)
+    for (let i = 0; i < termPosition[token].length; i++) {
+        usefulTokens.push(token)
+    }
 }
 
 const uniqueTokens = new Set(usefulTokens)
 
-let ratio = usefulTokens.length / uniqueTokens.size
+let ratio = uniqueTokens.size / usefulTokens.length
 
 if (ratio <= 0.3) {divScore -= 1}
 if (ratio >= 0.8) {divScore += 1}
