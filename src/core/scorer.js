@@ -206,7 +206,7 @@ function diversity (indexer, docId) {
 
     let divScore = 0
 
-    const termPosition = indexer.docMeta[docId].termPosition
+    const termPosition = indexer.docMeta[docId].termPositions
 
     const usefulTokens = []
 
@@ -231,13 +231,17 @@ function diversity (indexer, docId) {
         
         let ratio = uniqueTokens.size / usefulTokens.length
         
-        if (ratio <= 0.3) {divScore -= 1
-        if (ratio >= 0.8) {divScore += 1}
+         
+        
+        if (ratio >= 0.6) {divScore += 1}
+        if (ratio <= 0.3) {divScore -= 1}
+
+        
+        return divScore
     
     }
     
-    return divScore
-}
+
 
 function keyWords (indexer, docId) {
 
