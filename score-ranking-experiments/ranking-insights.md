@@ -70,6 +70,19 @@ actual result: [C,A,D,E,B]
 - This should push Doc A higher because A covers more causes than C. It may also raise B.
 - Trade-off: the scorer becomes more complex and more hand-built, but the ranking should become more accurate rather there pure keyword/token matching.
 
+# test 3
+
+actual result = [C,A,B,E,D]
+
+# observations
+
+ - A is only 1 point from C with increased keywords, but diversity has no effect on either C or A.
+ - B has increased, closer to C.
+
+
+ ## changes going forward
+ - Duplicate score is having no affect. I will adjust the weights on the duplicate scorer so it rewards/penalises through a range, rather than a binary point or minus point for either end of 0. (<= 0.3 and >= 0.8)
+
   
 
 
