@@ -81,8 +81,19 @@ actual result = [C,A,B,E,D]
 
 
  ## changes going forward
- - Duplicate score is having no affect. I will adjust the weights on the duplicate scorer so it rewards/penalises through a range, rather than a binary point or minus point for either end of 0. (<= 0.3 and >= 0.8)
+ - Duplicate score is having no affect. I will adjust the weighting on the duplicate scorer so it rewards/penalises through a range, rather than a binary point or minus point for either end of 0. (<= 0.3 and >= 0.8)
 
+## test 4 
+result = [C,A,B,E,D]
+
+# observations
+- Duplicate has a higher ratio on doc C than A.
+- D has lost more points because of duplicate penalty.
+
+## changes going forward
+
+- duplicate wasn't the answer for pushing A above C, but it has reduced D further, so will keep for repetitiveness
+- will include a count for useful words, but will cap it; otherwise long docs will always win.
   
 
 
