@@ -246,7 +246,7 @@ function keyWords (indexer, docId) {
 
     const termPosition = indexer.docMeta[docId].termPosition
 
-    const group = new Set (["solution", "fix", "cause", "causes", "fixes", "function", "value", "data", "return"])
+    const group = new Set (["solution", "fix", "cause", "causes", "fixes", "function", "value", "data", "return", "object"])
 
     for (let token of group) {
         if (!termPosition[token]) {continue}
