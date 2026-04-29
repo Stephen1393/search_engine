@@ -241,7 +241,7 @@ function diversity (indexer, docId) {
     
     }
 
-    function coverage(index, docId) {
+    function coverage(indexer, docId) {
 
         let covScore = 0
 
@@ -258,6 +258,22 @@ function diversity (indexer, docId) {
 
         if (!termPosition) {return covScore}
 
+        for (let token of termPosition) {
+            if (fillerTokens.has(token)) {continue}
+
+            for (let i = 0; i < termPosition[token].length; i++) {
+                usefulTokens.push(token)
+            }
+        }
+
+        let result = usefulTokens.length
+
+        if (result <= 20 && result >= 15) {covScore -= 0.5}
+        if (result <= 15) {covScore -= 1}
+        if (result >= 20 && result <= 40) {covScore += 0.5}
+        if (result >= 50 && result <= 60) {covScore += 1}
+
+    return covScore
 
     }
     
