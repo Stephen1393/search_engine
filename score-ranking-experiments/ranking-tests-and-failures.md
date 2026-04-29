@@ -95,6 +95,15 @@ result = [C,A,B,E,D]
 - duplicate wasn't the answer for pushing A above C, but it has reduced D further, so will keep for repetitiveness
 - will include a count for useful words, but will cap it; otherwise long docs will always win.
 - trade-off: shorter, more dense docs will be overlooked even if it contains useful information.
+
+## test 5
+result = [C,A,B,E,D]
+
+## observations
+- C gained 0.5 points while A gained nothing. Will have to review the points/penalites.
+
+## changes going forward
+- Will log the result from the useful-content function to see the numbers, and then will ensure the score is rewarding the more useful content.
   
 
 
