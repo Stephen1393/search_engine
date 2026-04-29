@@ -13,7 +13,8 @@ const { tokenize } = require('../../src/core/tokenize')
      const freqScore = frequency(indexer, queryTokens, docId)
      const wordsScore = keyWords(indexer, docId)
      const divScore = diversity(indexer, docId)
-     const total = titleScore + proxScore + spamScore + rareScore + freqScore + wordsScore + divScore
+     const contScore = useful_content(indexer, docId)
+     const total = titleScore + proxScore + spamScore + rareScore + freqScore + wordsScore + divScore + contScore
      
      result.title = titleScore
      result.proximity = proxScore
@@ -22,6 +23,7 @@ const { tokenize } = require('../../src/core/tokenize')
      result.frequency = freqScore
      result.keyWords = wordsScore
      result.diversity = divScore
+     result.useful_content = contScore
      result.total = total
 
 
@@ -241,9 +243,9 @@ function diversity (indexer, docId) {
     
     }
 
-    function coverage(indexer, docId) {
+    function useful_content (indexer, docId) {
 
-        let covScore = 0
+        let contScore = 0
 
         const termPosition = indexer.docMeta[docId].termPositions
 
@@ -256,9 +258,9 @@ function diversity (indexer, docId) {
         "and", "or", "but", "so",
         "this", "that", "it", "as", "if", "then"])
 
-        if (!termPosition) {return covScore}
+        if (!termPosition) {return contScore}
 
-        for (let token of termPosition) {
+        for (let token in termPosition) {
             if (fillerTokens.has(token)) {continue}
 
             for (let i = 0; i < termPosition[token].length; i++) {
@@ -268,12 +270,12 @@ function diversity (indexer, docId) {
 
         let result = usefulTokens.length
 
-        if (result <= 20 && result >= 15) {covScore -= 0.5}
-        if (result <= 15) {covScore -= 1}
-        if (result >= 20 && result <= 40) {covScore += 0.5}
-        if (result >= 50 && result <= 60) {covScore += 1}
+        if (result <= 20 && result >= 15) {contScore -= 0.5}
+        if (result < 15) {contScore -= 1}
+        if (result > 20 && result <= 40) {contScore += 0.5}
+        if (result > 40 && result <= 60) {contScore += 1}
 
-    return covScore
+    return contScore
 
     }
     
