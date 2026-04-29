@@ -90,10 +90,11 @@ result = [C,A,B,E,D]
 - Duplicate has a higher ratio on doc C than A.
 - D has lost more points because of duplicate penalty.
 
-## changes going forward
+## changes going forward / trade-offs
 
 - duplicate wasn't the answer for pushing A above C, but it has reduced D further, so will keep for repetitiveness
 - will include a count for useful words, but will cap it; otherwise long docs will always win.
+- trade-off: shorter, more dense docs will be overlooked even if it contains useful information.
   
 
 
