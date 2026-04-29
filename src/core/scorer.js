@@ -240,6 +240,26 @@ function diversity (indexer, docId) {
         return divScore
     
     }
+
+    function coverage(index, docId) {
+
+        let covScore = 0
+
+        const termPosition = indexer.docMeta[docId].termPositions
+
+        let usefulTokens = []
+
+        const fillerTokens = new Set ([
+        "a", "an", "the",
+        "is", "are", "was", "were",
+        "of", "in", "on", "at", "to", "for", "with", "by", "from",
+        "and", "or", "but", "so",
+        "this", "that", "it", "as", "if", "then"])
+
+        if (!termPosition) {return covScore}
+
+
+    }
     
 
 
