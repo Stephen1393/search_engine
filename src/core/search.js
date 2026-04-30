@@ -52,8 +52,8 @@ const search = (query) => {
             result.push(docInfo)
         }
 
-        result.sort((a, b) => b.score - a.score)
-        
+        result.sort((a, b) => b.score.total - a.score.total)
+
         return result
     
     }
