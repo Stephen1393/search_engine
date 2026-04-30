@@ -270,10 +270,13 @@ function diversity (indexer, docId) {
 
         let result = usefulTokens.length
 
-        if (result <= 20 && result >= 15) {contScore -= 0.5}
         if (result < 15) {contScore -= 1}
+        if (result <= 20 && result >= 15) {contScore -= 0.5}
         if (result > 20 && result <= 40) {contScore += 0.5}
         if (result > 40 && result <= 60) {contScore += 1}
+        if (result > 60 && result <= 80) {contScore += 1.5}
+        if (result > 80) {contScore += 2}
+
 
     return contScore
 
