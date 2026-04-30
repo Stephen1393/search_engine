@@ -104,6 +104,21 @@ result = [C,A,B,E,D]
 
 ## changes going forward
 - Will log the result from the useful-content function to see the numbers, and then will ensure the score is rewarding the more useful content.
+
+## test 6 - success
+
+result = [A,C,B,E,D]
+
+## observations 
+
+- A is now the winner and the overal output is in a good, working order.
+
+- A has the most useful content followed by C/B which are similar. (B having one extra example)
+- E/D are the the lowest, penalised heavily for repetition and spam.
+
+## changes going forward
+
+- will test on another query with 5 more docs and will see how the scorer behaves.
   
 
 
