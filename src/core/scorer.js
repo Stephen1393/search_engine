@@ -71,17 +71,17 @@ function titleTerms (indexer,queryTokens, docId) {
        let partial = false
        let current
 
+
        for (let i = 0; i < queryTokens.length - 1; i++) {
         let tokenA = queryTokens[i] 
         let tokenB = queryTokens[i + 1] 
-    
-        if (termPositions[tokenB] === undefined) {
-            return proxScore
-        }
 
-        if (i === 0) {
-            current = termPositions[tokenA] 
-        }
+       const positionA = termPositions[tokenA]
+       const positionB = termPositions[tokenB]
+    
+        if (!positionA || !positionB) {continue}
+
+        if (!current) { current = positionA }
 
         let matches = []
 

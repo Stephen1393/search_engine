@@ -23,7 +23,7 @@ const search = (query) => {
         const token = queryTokens[i] 
         const postings = index[token] 
 
-        if (!postings) { return [] }
+        if (!postings) { continue }
 
             if (currentDocs === null) {
                 currentDocs = new Set(postings) 
