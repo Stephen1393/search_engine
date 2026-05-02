@@ -233,7 +233,7 @@ function diversity (indexer, docId) {
         
          
         
-        divScore = ratio * 2
+       let divScore = ratio * 2
 
         
         return divScore

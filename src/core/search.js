@@ -52,14 +52,22 @@ const search = (query) => {
             let docInfo = {}
             let score = activeScorer(indexer,query, docId)
 
+
+
             docInfo.filename = docIdToName[docId]
             docInfo.docId = docId
             docInfo.score = score
+            
 
             result.push(docInfo)
         }
 
         result.sort((a, b) => b.score.total - a.score.total)
+        
+        for (const doc of result) {
+    doc.score.diversity = Number(doc.score.diversity.toFixed(1))
+    doc.score.total = Number(doc.score.total.toFixed(1))
+}
 
         return result
     
