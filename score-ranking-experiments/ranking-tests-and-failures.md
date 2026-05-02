@@ -1,4 +1,4 @@
-# scorer test 1
+# scorer test 1 - fail
 
 query(TypeError: Cannot read properties of undefined (reading 'length'))
 
@@ -39,7 +39,7 @@ actual result: [C,A,D,E,B]
 - include a limit for repetition instead of a constant reward for frequency
 
 
-## test 2
+## test 2 - fail
 
   ## expected result
 
@@ -70,7 +70,7 @@ actual result: [C,A,D,E,B]
 - This should push Doc A higher because A covers more causes than C. It may also raise B.
 - Trade-off: the scorer becomes more complex and more hand-built, but the ranking should become more accurate rather there pure keyword/token matching.
 
-# test 3
+# test 3 - fail
 
 actual result = [C,A,B,E,D]
 
@@ -83,7 +83,9 @@ actual result = [C,A,B,E,D]
  ## changes going forward
  - Duplicate score is having no affect. I will adjust the weighting on the duplicate scorer so it rewards/penalises through a range, rather than a binary point or minus point for either end of 0. (<= 0.3 and >= 0.8)
 
-## test 4 
+
+## test 4 - fail
+
 result = [C,A,B,E,D]
 
 # observations
@@ -96,7 +98,8 @@ result = [C,A,B,E,D]
 - will include a count for useful words, but will cap it; otherwise long docs will always win.
 - trade-off: shorter, more dense docs will be overlooked even if it contains useful information.
 
-## test 5
+## test 5 - fail
+
 result = [C,A,B,E,D]
 
 ## observations
@@ -104,6 +107,8 @@ result = [C,A,B,E,D]
 
 ## changes going forward
 - Will log the result from the useful-content function to see the numbers, and then will ensure the score is rewarding the more useful content.
+
+
 
 ## test 6 - success
 
@@ -119,10 +124,33 @@ result = [A,C,B,E,D]
 ## changes going forward
 
 - will test on another query with 5 more docs and will see how the scorer behaves.
+
+
+
   
 
+## second test 2 - (""cannot read property length") - success
+
+## observations
+
+A is the winner, followed by B. Keywords, frequency, and useful-content scored similar and match accurately to the docs.
 
 
+
+
+
+## third test 3 - ("why is length undefined) - fail
+
+## observations
+
+B in the winner, with A 1 point behind. Main score difference was keywords, both having the same diversity
+
+
+## changes going forward
+
+- have already began to change the search OR logic to continue/skip undefined tokens; the proximity also has guards incase neither token exists to stop the programme crashing
+- Will add stop words such as (is, why, what) to ignore so scorer can focus on the important tokens
+- my threshold scores for divserity aren't helping; it rewards docs that are close in ratio equally. I will either use a gradual scoring system like that in useful_content function or a multiplier.
 
 
 
