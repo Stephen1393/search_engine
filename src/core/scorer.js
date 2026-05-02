@@ -206,8 +206,6 @@ function frequency (indexer, queryTokens, docId) {
 
 function diversity (indexer, docId) {
 
-    let divScore = 0
-
     const termPosition = indexer.docMeta[docId].termPositions
 
     const usefulTokens = []
@@ -235,8 +233,7 @@ function diversity (indexer, docId) {
         
          
         
-        if (ratio >= 0.6) {divScore += 1}
-        if (ratio <= 0.3) {divScore -= 1}
+        divScore = ratio * 2
 
         
         return divScore

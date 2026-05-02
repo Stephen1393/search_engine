@@ -13,7 +13,14 @@ const search = (query) => {
 
     const { index, docIdToName} = indexer
 
-    const queryTokens = tokenize(query)  
+    let queryTokens = tokenize(query)  
+
+    if (queryTokens.length === 0) return []
+
+    let stopWords = ["is", "why", "what", "the", "a", "of", "confusing", "confused", "how"]
+
+    queryTokens = queryTokens.filter(token => !stopWords.includes(token))
+
     if (queryTokens.length === 0) return []
 
  
