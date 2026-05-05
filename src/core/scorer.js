@@ -194,10 +194,16 @@ function frequency (indexer, queryTokens, docId) {
 
         let tokenFrequency = termPosition[token] 
 
-        if (tokenFrequency.length <= 3) { 
+        if (tokenFrequency.length <= 2) { 
+            freqScore += 0.5
+        }
+        if (tokenFrequency.length >= 3 && tokenFrequency <= 5) {
             freqScore += 1
         }
-        if (tokenFrequency.length >= 6) {
+        if (tokenFrequency.length >= 6 && tokenFrequency <= 8) {
+            freqScore += 0
+        }
+        if (tokenFrequency.length > 8) {
             freqScore -= 1
         }
     }
