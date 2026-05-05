@@ -307,6 +307,9 @@ function keyWords (indexer, docId) {
         
         if (count <= 2) {wordsScore += 0.5}
         if (count > 2 && count <= 4) {wordsScore += 1}
+        if (count > 4) {wordsScore += 1.5}
+
+        
     
 return wordsScore
 }
