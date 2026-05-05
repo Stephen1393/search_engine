@@ -197,10 +197,10 @@ function frequency (indexer, queryTokens, docId) {
         if (tokenFrequency.length <= 2) { 
             freqScore += 0.5
         }
-        if (tokenFrequency.length >= 3 && tokenFrequency <= 5) {
+        if (tokenFrequency.length >= 3 && tokenFrequency.length <= 5) {
             freqScore += 1
         }
-        if (tokenFrequency.length >= 6 && tokenFrequency <= 8) {
+        if (tokenFrequency.length >= 6 && tokenFrequency.length <= 8) {
             freqScore += 0
         }
         if (tokenFrequency.length > 8) {
