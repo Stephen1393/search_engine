@@ -4,6 +4,6 @@ const path = require('path')
 const testDocs = path.join(__dirname,"..","..", "test_docs", "test1_typeError")
 const search = createSearch(testDocs)
 
-let result = search("why is length undefined")
+let result = search("cannot read property length")
 
 console.log(result)
