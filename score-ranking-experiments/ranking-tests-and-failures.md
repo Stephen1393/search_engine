@@ -1,6 +1,4 @@
-## scorer test 1 - fail
-
-query(TypeError: Cannot read properties of undefined (reading 'length'))
+## first query(TypeError: Cannot read properties of undefined (reading 'length')) test 1 = fail
 
 A = doc1.txt
 B = TypeError.cannot.read.txt
@@ -41,7 +39,7 @@ E = typeError.undefined
 
 - include a limit for repetition instead of a constant reward for frequency.
 
-## test 2 - fail
+## first query - test 2 = fail
 
   # expected result
 
@@ -75,7 +73,7 @@ E = typeError.undefined
 
   - Trade-off: the scorer becomes more complex and more hand-built, but the ranking should become more accurate rather there pure keyword/token matching.
 
-## test 3 - fail
+## first query test 3 = fail
 
  actual result = [C,A,B,E,D]
 
@@ -90,7 +88,7 @@ E = typeError.undefined
  - Duplicate score is having no affect. I will adjust the weighting on the duplicate scorer so it rewards/penalises through a range, rather than a binary point or minus point for either end of 0. (<= 0.3 and >= 0.8)
 
 
-## test 4 - fail
+## first query test 4 = fail
 
  result = [C,A,B,E,D]
 
@@ -107,7 +105,7 @@ E = typeError.undefined
 
  - trade-off: shorter, more dense docs will be overlooked even if it contains useful information.
 
-## test 5 - fail
+## first query test 5 = fail
 
 result = [C,A,B,E,D]
 
@@ -121,7 +119,7 @@ result = [C,A,B,E,D]
 
 
 
-## test 6 - success
+## first query test 6 = success
 
 result = [A,C,B,E,D]
 
@@ -140,7 +138,7 @@ result = [A,C,B,E,D]
 
   
 
-## second test 2 - (""cannot read property length") - success
+## second query("cannot read property length")  - test 1 = success
 
  # observations
 
@@ -150,7 +148,7 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
 
 
 
-## third test 3 - ("why is length undefined") - fail
+## third query("why is length undefined") - test 1 = fail
 
 # observations
 
@@ -165,7 +163,7 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
 
 - my threshold scores for divserity aren't helping; it rewards docs that are close in ratio equally. I will either use a gradual scoring system like that in useful_content function or a multiplier.
 
-## third test 2 - fail
+## third query - test 2 = fail
 
  # observations
 
@@ -181,6 +179,16 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
  - will change frequency scorer to have a gradual scoring system rather than two, rigid fixed numbers.
  - will increase reward for a variety of keywords
  - will test with the first two changes above before inspecting proximity more.
+
+
+## third query - test 3 = success
+
+
+ # observations
+
+ - A is the clear winner by 2.2 points, followed by B. It has an extra point on frequency and useful_content; these are more realistic deciding factors than overpowered keywords.
+ - They have the same points for keywords now.
+
 
 
 
