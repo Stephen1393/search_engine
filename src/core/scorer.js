@@ -287,16 +287,21 @@ function keyWords (indexer, docId) {
 
     const termPosition = indexer.docMeta[docId].termPositions
 
-    const group = new Set (["solution", "fix", "cause", "causes", "fixes", "return", "value", "object", "data"])
+    const group = new Set (["solution", "fix", "cause", "causes", "fixes", "return", "value", "object", "data", "property", "async"])
+    const group2 = new Set([])
 
     for (let token of group) {
         if (!termPosition[token]) {continue}
+        group2.add(token)
 
-        let count = termPosition[token].length
-        
-        if (count <= 2) {wordsScore += 1}
-        if (count >= 5) {wordsScore -= 1}
+
     }
+
+    let count = group2.size
+        
+        if (count <= 2) {wordsScore += 0.5}
+        if (count > 2 && count <= 4) {wordsScore += 1}
+    
 return wordsScore
 }
     
