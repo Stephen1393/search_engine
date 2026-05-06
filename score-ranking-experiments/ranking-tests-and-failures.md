@@ -190,6 +190,17 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
  - They have the same points for keywords now.
 
 
+## fourth query ("undefined length js") - success
+## fifth query ("length undefined error help") - success
+## sixth query ("wtf length undefined js") - sucess
+## seventh query ("length error help") - success
+
+ # observations
+ - Tested for robustness. doc A wins on all of them.
+ - main deciding factors are diversity, useful_content and frequency.
+
+
+
 
 
 
