@@ -29,7 +29,7 @@ E = typeError.undefined
  - duplicate docs had no tokens in sequence, scored second lowest.
 
  
- # Changes going forward/trade-offs:
+ # Changes going forward
 
 - Improve spam detection to penalise repeated query phrases that do not add new information.
 
@@ -218,6 +218,24 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
   - doc J assumes it's a react probably so isn't complete enough and may be unrelated
 
   - will be including 5 docs from previous error message to challenge scorer with noise
+
+  ## first query test 1 = fail
+
+   # observations
+   - doc G wins, main different being frequency from doc F
+   - doc F was rewarded twice for titletokens
+   - doc H is near bottom, but some docs written for the legnth error query are above it
+   
+   # changes going forward
+   - fix broken titleToken logic so it rewards only 1 point for token match
+   - add a reward for error tags. If query contains length, map, etc, the docs containing those tokens will receive a boost
+   - add a reward for useful js syntax in useful_contents such as Array.isArray(...), ?.map(...), etc.
+
+   ## trade-offs
+   - changing frequency will help doc F beat doc G, but it may raise other, less useful docs higher.
+   - using a small error tag signal will help distinguish between docs, but will need manual adding tags if I add more docs later.
+   - overall, this seems the right decision; frequency is too broad and previous results have shown it works well as it is (for now).
+
 
 
 
