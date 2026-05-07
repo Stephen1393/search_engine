@@ -14,7 +14,11 @@ const { tokenize } = require('../../src/core/tokenize')
      const wordsScore = keyWords(indexer, docId)
      const divScore = diversity(indexer, docId)
      const contScore = useful_content(indexer, docId)
-     const total = titleScore + proxScore + spamScore + rareScore + freqScore + wordsScore + divScore + contScore
+     const errorCount = error_tags(queryTokens)
+
+     const total = 
+     titleScore + proxScore + spamScore + rareScore +
+     freqScore + wordsScore + divScore + contScore + errorCount 
      
      result.title = titleScore
      result.proximity = proxScore
@@ -24,6 +28,7 @@ const { tokenize } = require('../../src/core/tokenize')
      result.keyWords = wordsScore
      result.diversity = divScore
      result.useful_content = contScore
+     result.error_tags = errorCount
      result.total = total
 
 
@@ -362,12 +367,13 @@ function error_tags (queryTokens) {
 
         const result = errorMatch.size
 
-        if (result.size === 1) {
+        if (result === 1) {
             errorCount += 1
         }
 
-        return errorCount
     }
+
+    return errorCount
 
 
 }
