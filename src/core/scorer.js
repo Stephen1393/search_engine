@@ -346,4 +346,16 @@ return result
 
 }
 
+function error_tags (indexer, queryTokens, docId) {
+
+    let errorMatch = 0
+    let termPosition = indexer.docMeta[docId].termPositions
+    let errorWords = new Set(["length", "map"])
+
+    const queryTerms = new Set(queryTokens)
+
+
+}
+
+
 module.exports =  { scorer }
