@@ -200,6 +200,25 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
  - main deciding factors are diversity, useful_content and frequency.
 
 
+ ## second error query (Cannot read properties of undefined (reading 'map'))
+
+  # expectations from test 1
+
+  js-map-undefined-error.txt - doc A
+  javascript-array-method-on-undefined.txt - doc B
+  map-error-js-undefined-help-txt - doc C
+  Cannot.read.propery.map.of.undefined - doc D
+  react-api-loading-map-bug.txt - doc E
+
+
+  - doc A is more practical for the user because it offers specific fixes; this should be the winner
+  - doc B might win because it has similar structure, offers explanations, and appears just as useful without being specific
+  - doc C should finish last (repetetive, spammy)
+  - doc D has use, but is limited/not very useful
+  - doc E assumes it's a react probably so isn't complete enough and may be unrelated
+
+  - will be including 5 docs from previous error message to challenge scorer with noise
+
 
 
 
