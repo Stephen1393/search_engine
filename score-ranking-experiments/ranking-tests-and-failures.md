@@ -204,18 +204,18 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
 
   # expectations from test 1
 
-  js-map-undefined-error.txt - doc A
-  javascript-array-method-on-undefined.txt - doc B
-  map-error-js-undefined-help-txt - doc C
-  Cannot.read.propery.map.of.undefined - doc D
-  react-api-loading-map-bug.txt - doc E
+  js-map-undefined-error.txt - doc F
+  javascript-array-method-on-undefined.txt - doc G
+  map-error-js-undefined-help-txt - doc H
+  Cannot.read.propery.map.of.undefined - doc I
+  react-api-loading-map-bug.txt - doc J
 
 
-  - doc A is more practical for the user because it offers specific fixes; this should be the winner
-  - doc B might win because it has similar structure, offers explanations, and appears just as useful without being specific
-  - doc C should finish last (repetetive, spammy)
-  - doc D has use, but is limited/not very useful
-  - doc E assumes it's a react probably so isn't complete enough and may be unrelated
+  - doc F is more practical for the user because it offers specific fixes; this should be the winner
+  - doc G might win because it has similar structure, offers explanations, and appears just as useful without being specific
+  - doc H should finish last (repetetive, spammy)
+  - doc I has use, but is limited/not very useful
+  - doc J assumes it's a react probably so isn't complete enough and may be unrelated
 
   - will be including 5 docs from previous error message to challenge scorer with noise
 
