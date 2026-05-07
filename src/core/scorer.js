@@ -346,13 +346,28 @@ return result
 
 }
 
-function error_tags (indexer, queryTokens, docId) {
+function error_tags (queryTokens) {
 
-    let errorMatch = 0
-    let termPosition = indexer.docMeta[docId].termPositions
+    let errorCount = 0
     let errorWords = new Set(["length", "map"])
+    let errorMatch = new Set()
 
     const queryTerms = new Set(queryTokens)
+
+    for (const token of queryTerms) {
+        if (errorWords.has(token)) {
+
+            errorMatch.add(token)
+        }
+
+        const result = errorMatch.size
+
+        if (result.size === 1) {
+            errorCount += 1
+        }
+
+        return errorCount
+    }
 
 
 }
