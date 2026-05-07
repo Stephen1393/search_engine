@@ -1,0 +1,13 @@
+TypeError: Cannot read property 'map' of undefined
+
+JavaScript throws this error when code tries to run map on a variable that does not exist yet.
+
+Example:
+users.map(user => user.id)
+
+But users is undefined.
+
+How to fix it:
+- Initialize users as an empty array
+- Check the variable before using map
+- Trace where the value should have been set

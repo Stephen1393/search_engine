@@ -1,0 +1,20 @@
+JavaScript error: Cannot read properties of undefined (reading 'map')
+
+This happens when you call .map() on a value that is undefined instead of an array.
+
+Example:
+const items = undefined;
+items.map(item => item.name);
+
+Common causes:
+- The variable was never assigned
+- A function returned undefined instead of an array
+- API data has not loaded yet
+- You expected an array but received nothing
+
+Fix:
+Make sure the value is defined before calling map.
+Useful patterns:
+Array.isArray(items)
+items?.map(...)
+const safeItems = items || []

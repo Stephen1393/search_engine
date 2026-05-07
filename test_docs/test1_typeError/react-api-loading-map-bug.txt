@@ -1,0 +1,13 @@
+Why am I getting "Cannot read properties of undefined (reading 'map')" in JavaScript?
+
+This often happens in React when the component renders before API data arrives.
+
+Example:
+return users.map(user => <li>{user.name}</li>)
+
+If users is undefined on the first render, JavaScript throws a map error.
+
+Fixes:
+- Start with an empty array in state
+- Render conditionally
+- Check the API response shape carefully

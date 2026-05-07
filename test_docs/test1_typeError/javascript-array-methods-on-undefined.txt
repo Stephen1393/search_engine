@@ -1,0 +1,17 @@
+JavaScript array method errors on undefined values
+
+A common JavaScript mistake is calling array methods on undefined.
+
+Examples:
+- Cannot read properties of undefined (reading 'map')
+- Cannot read properties of undefined (reading 'filter')
+- Cannot read properties of undefined (reading 'forEach')
+
+Common causes:
+- Data from an API has not loaded
+- A function returned the wrong value
+- A variable name is incorrect
+- Nested data does not exist
+
+General fix:
+Check that the value exists and is an array before calling array methods.
