@@ -366,25 +366,20 @@ function error_tags (indexer, queryTokens, docId) {
         if (errorWords.has(term))
         
             errorMatch.add(term)
-        }
+        
 
-        let result = new Set ([])
+        if (termPositions[term]) {
+            if (errorMatch.has(term))
 
-        for (let token of termPositions) {
-            if (!termPositions[token]) {continue}
-
-            if (errorMatch.has(token))
-            
-                result.add(token)
-            }
-
-            if (result.size === 1) {
+            if (errorCount === 0) {
                 errorCount += 1
-            }
-
-        return errorCount
-    
+            } 
+        }
     }
+
+    return errorCount
+    
+}
 
 
 module.exports =  { scorer }
