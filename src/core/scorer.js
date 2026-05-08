@@ -374,6 +374,9 @@ function error_tags (indexer, queryTokens, docId) {
             if (errorCount === 0) {
                 errorCount += 1
             } 
+            if (errorCount === 1) {
+                errorCount += 0.5
+            }
             
         }
     }
