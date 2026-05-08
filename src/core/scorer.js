@@ -358,12 +358,33 @@ function error_tags (indexer, queryTokens, docId) {
     let errorCount = 0
     let termPositions = indexer.docMeta[docId].termPositions
     let errorWords = new Set(["length", "map"])
+    let errorMatch = new Set([])
 
     const queryTerms = new Set(queryTokens)
     
+    for (let term of queryTerms) {
+        if (errorWords.has(term))
+        
+            errorMatch.add(term)
+        }
 
+        let result = new Set ([])
 
-}
+        for (let token of termPositions) {
+            if (!termPositions[token]) {continue}
+
+            if (errorMatch.has(token))
+            
+                result.add(token)
+            }
+
+            if (result.size === 1) {
+                errorCount += 1
+            }
+
+        return errorCount
+    
+    }
 
 
 module.exports =  { scorer }
