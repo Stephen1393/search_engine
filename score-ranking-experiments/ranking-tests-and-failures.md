@@ -1,10 +1,10 @@
 ## first query(TypeError: Cannot read properties of undefined (reading 'length')) test 1 = fail
 
-A = doc1.txt
-B = TypeError.cannot.read.txt
-C = TypeError.txt
-D = doc4.txt  
-E = typeError.undefined
+doc A
+doc B
+doc C
+doc D  
+doc E
 
  # expected results:
 
@@ -204,11 +204,11 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
 
   # expectations from test 1
 
-  js-map-undefined-error.txt - doc F
-  javascript-array-method-on-undefined.txt - doc G
-  map-error-js-undefined-help-txt - doc H
-  Cannot.read.propery.map.of.undefined - doc I
-  react-api-loading-map-bug.txt - doc J
+  doc F
+  doc G
+  doc H
+  doc I
+  doc J
 
 
   - doc F is more practical for the user because it offers specific fixes; this should be the winner
@@ -237,6 +237,8 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
    - overall, this seems the right decision; frequency is too broad and previous results have shown it works well as it is (for now).
 
 
+   ## insights from a for quick tests with new docs
+   - have decided to remove scoring token match in filenames (titleTokens). Less useful docs were ranking higher simply because of token match.
 
 
 

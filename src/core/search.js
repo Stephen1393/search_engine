@@ -30,9 +30,6 @@ const search = (query) => {
         const token = queryTokens[i] 
         const postings = index[token] 
 
-        if (docId === 1) {console.log("token:", token)
-console.log("postings:", postings)}
-
         if (!postings) { continue }
 
             if (currentDocs === null) {

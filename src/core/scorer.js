@@ -6,7 +6,7 @@ const { tokenize } = require('../../src/core/tokenize')
 
      const queryTokens = tokenize(query)
      
-     const titleScore = titleTerms(indexer, queryTokens, docId)
+    // const titleScore = titleTerms(indexer, queryTokens, docId)
      const proxScore = proximity(indexer, queryTokens, docId)
      const spamScore = spam(indexer, queryTokens, docId)
      const rareScore = rarity(indexer, queryTokens)
@@ -17,10 +17,10 @@ const { tokenize } = require('../../src/core/tokenize')
      const errorCount = error_tags(queryTokens)
 
      const total = 
-     titleScore + proxScore + spamScore + rareScore +
+     proxScore + spamScore + rareScore +
      freqScore + wordsScore + divScore + contScore + errorCount 
      
-     result.title = titleScore
+      // result.title = titleScore
      result.proximity = proxScore
      result.spam = spamScore
      result.rarity = rareScore
@@ -31,8 +31,9 @@ const { tokenize } = require('../../src/core/tokenize')
      result.error_tags = errorCount
      result.total = total
 
+//  leaving title Tokens scorer out . wasn't helpful for ranking useful content first
 
-function titleTerms (indexer,queryTokens, docId) {
+ /* function titleTerms (indexer,queryTokens, docId) {
 
    
     const titleTokens = indexer.docMeta[docId].titleTokens
@@ -45,7 +46,8 @@ function titleTerms (indexer,queryTokens, docId) {
 
          if (titleTokens.includes(token)) {
                 titleScore += 1
-            }
+
+         }
 
             let match;
 
@@ -66,8 +68,8 @@ function titleTerms (indexer,queryTokens, docId) {
 
         }
     }
-    return titleScore
-}
+    return titleScore 
+} */
 
     function proximity (indexer,queryTokens, docId) {
 
