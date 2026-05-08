@@ -255,3 +255,16 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
 
 
 
+## second query test ("undefined error help")
+## third query test ("weird map error")
+## fourth query test ("map javascript undefined help")
+## fifth query test ("why is programme saying cannot read map")
+
+ # observations
+ - 3/4 tests rank either doc G or F the highest.
+ - the third query, doc G and F are neither first or second. If I overtune scorer, other results would suffer.
+ - I also tested old queries again against the latest scorer. doc A ranks first on every one, with the other related docs close by.
+
+ ## going forward
+
+ - will test against mixed, ambiguous queries
