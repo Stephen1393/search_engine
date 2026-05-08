@@ -268,3 +268,15 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
  ## going forward
 
  - will test against mixed, ambiguous queries
+
+
+ ## first mixed query test ("undefined length or map error") - result = doc J,A,F
+ ## second mixed query test ("js undefined error map length") - result = doc A,F,L
+ ## third mixed query test ("why underfined error length map not working") - result = doc F,A,G
+ ## fourth mixed query test ("length undefined filter map error") - result = doc J,A,F
+ ## fifth mixed query test ("undefined everything broken js") - result = doc A,F,G
+
+  # observations
+  - doc A is strongest for length error and doc F/G are strongest for map error
+  - those docs are consistent across top three results
+  - spammy result for both are bottom on all tests
