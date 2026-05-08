@@ -14,7 +14,7 @@ const { tokenize } = require('../../src/core/tokenize')
      const wordsScore = keyWords(indexer, docId)
      const divScore = diversity(indexer, docId)
      const contScore = useful_content(indexer, docId)
-     const errorCount = error_tags(queryTokens)
+     const errorCount = error_tags(queryTokens, docId)
 
      const total = 
      proxScore + spamScore + rareScore +
@@ -353,29 +353,14 @@ return result
 
 }
 
-function error_tags (queryTokens) {
+function error_tags (indexer, queryTokens, docId) {
 
     let errorCount = 0
+    let termPositions = indexer.docMeta[docId].termPositions
     let errorWords = new Set(["length", "map"])
-    let errorMatch = new Set([])
 
     const queryTerms = new Set(queryTokens)
-
-    for (const token of queryTerms) {
-        if (errorWords.has(token)) {
-
-            errorMatch.add(token)
-        }
-
-        const result = errorMatch.size
-
-        if (result === 1) {
-            errorCount += 1
-        }
-
-    }
-
-    return errorCount
+    
 
 
 }
