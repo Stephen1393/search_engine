@@ -355,7 +355,7 @@ function error_tags (queryTokens) {
 
     let errorCount = 0
     let errorWords = new Set(["length", "map"])
-    let errorMatch = new Set()
+    let errorMatch = new Set([])
 
     const queryTerms = new Set(queryTokens)
 

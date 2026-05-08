@@ -30,6 +30,9 @@ const search = (query) => {
         const token = queryTokens[i] 
         const postings = index[token] 
 
+        if (docId === 1) {console.log("token:", token)
+console.log("postings:", postings)}
+
         if (!postings) { continue }
 
             if (currentDocs === null) {
@@ -51,8 +54,6 @@ const search = (query) => {
          for (const docId of currentDocs) {
             let docInfo = {}
             let score = activeScorer(indexer,query, docId)
-
-
 
             docInfo.filename = docIdToName[docId]
             docInfo.docId = docId
