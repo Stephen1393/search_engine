@@ -240,6 +240,18 @@ A is the winner, followed by B. Keywords, frequency, and useful-content scored s
    ## insights from a for quick tests with new docs
    - have decided to remove scoring token match in filenames (titleTokens). Less useful docs were ranking higher simply because of token match.
 
+   ## first query test 2 = fail/success
+
+    # observations
+
+    - doc G still wins, but error_tags have helped raise more related docs higher up.
+    
+    # insights
+
+    - decided to leave out adding a score for useful, error js syntax; it felt too forced. Right now, the search has a good, general ranking order based on the main scorers of proximity, frequency, diversity, and useful_content.
+    - doc F was my choosen winner, but some users may find doc G just as helpful. These docs are the clear winners for this query.
+   
+
 
 
 
