@@ -67,3 +67,8 @@
   reworked spam logic. separated single token and first pair checks and fixed some structure issues. Decided to leave full query spam for now because it was getting too bloated and frequency will likely cover some of the penalties
 
 lesson: separate the general loop from the special case. single token spam and first pair spam needed their own logic
+
+
+ # lesson - looping through objects
+
+ When writing helper function for scorer (error_tags function), I looped through object to compare tokens. It's more efficient to look up object directly.
