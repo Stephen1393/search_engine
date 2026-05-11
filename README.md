@@ -5,8 +5,8 @@ This project is a small search engine built from scratch to understand informati
 
 It currently focuses on returning the most revelant docs for two Javascript runtime errors: 
 
-"TypeError: cannot read properties of undefined (reading 'length')"
-"JavaScript error: Cannot read properties of undefined (reading 'map')"
+-"TypeError: cannot read properties of undefined (reading 'length')"
+-"JavaScript error: Cannot read properties of undefined (reading 'map')"
  
 
 ## Current Version Scope
@@ -16,31 +16,35 @@ It currently focuses on returning the most revelant docs for two Javascript runt
 - OR queries
 - ranking system (scorer breakdown)
 
+## Demo
+
+https://www.youtube.com/watch?v=CEgzZYz3AEo
+
 ## Demo queries
 
 Query:
 "Cannot read properties of undefined (reading 'map')"
 
 Top Results:
-G
-F
-J
+-G
+-F
+-J
 
 Query:
 "why is length undefined js"
 
 Top Results:
-A
-B
-C
+-A
+-B
+-C
 
 Query:
 "undefined length or map error"
 
 Top Results:
-J
-A
-F
+-J
+-A
+-F
 
 
 
